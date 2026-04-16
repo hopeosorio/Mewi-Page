@@ -12,8 +12,6 @@ Landing page oficial de Mewi, marca de bubble tea con presencia en Ciudad de Mé
 | GSAP | 3.x | Animaciones, ScrollTrigger, Observer |
 | Lenis | 1.3.x | Smooth scroll |
 | Leaflet | 1.9.x | Mapa interactivo de sucursales |
-| Three.js | 0.183.x | Globo 3D decorativo |
-| Cobe | 2.x | Renderizado del globo |
 
 No usa frameworks de UI. Todo el frontend es HTML, CSS y JavaScript vanilla modular.
 
@@ -30,7 +28,6 @@ Mewi-Page/
 │
 ├── src/
 │   ├── main.js              # Entry point: Lenis, GSAP, scrollbar, nav, animaciones
-│   ├── globe.js             # Globo 3D con Three.js + Cobe
 │   ├── map.js               # Mapa Leaflet con marcadores de sucursales
 │   ├── components/
 │   │   ├── Favoritos.js     # Render dinámico del carrusel de productos

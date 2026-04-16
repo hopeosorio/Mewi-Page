@@ -8,9 +8,6 @@ import Lenis from 'lenis';
 import { renderFavoritos } from './components/Favoritos.js';
 import { renderTestimonios } from './components/Testimonios.js';
 
-// Init Globe (retorna silenciosamente si no hay canvas)
-import './globe.js';
-
 // Init Mapa Leaflet
 import './map.js';
 
