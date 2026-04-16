@@ -9,7 +9,7 @@ import { renderFavoritos } from './components/Favoritos.js';
 import { renderTestimonios } from './components/Testimonios.js';
 
 // Init Mapa Leaflet
-import './map.js';
+import './js/map.js';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
@@ -34,11 +34,11 @@ gsap.ticker.lagSmoothing(0);
 const scrollbarTrack = document.createElement('div');
 scrollbarTrack.id = 'custom-scrollbar';
 scrollbarTrack.setAttribute('aria-hidden', 'true');
-scrollbarTrack.style.setProperty('cursor', "url('/cursor-default.svg') 1 1, auto", 'important');
+scrollbarTrack.style.setProperty('cursor', "url('/cursors/cursor-default.svg') 1 1, auto", 'important');
 
 const scrollbarThumb = document.createElement('div');
 scrollbarThumb.id = 'custom-scrollbar-thumb';
-scrollbarThumb.style.setProperty('cursor', "url('/cursor-grab.svg') 12 12, grab", 'important');
+scrollbarThumb.style.setProperty('cursor', "url('/cursors/cursor-grab.svg') 12 12, grab", 'important');
 
 scrollbarTrack.appendChild(scrollbarThumb);
 document.body.appendChild(scrollbarTrack);
@@ -104,7 +104,7 @@ scrollbarThumb?.addEventListener('mousedown', (e) => {
   dragStartY = e.clientY;
   dragStartScroll = currentScroll;
   scrollbarThumb.classList.add('dragging');
-  scrollbarThumb.style.setProperty('cursor', "url('/cursor-grab.svg') 12 12, grabbing", 'important');
+  scrollbarThumb.style.setProperty('cursor', "url('/cursors/cursor-grab.svg') 12 12, grabbing", 'important');
   document.body.classList.add('scrollbar-dragging');
   e.preventDefault();
 });
@@ -122,7 +122,7 @@ document.addEventListener('mouseup', () => {
   if (!dragging) return;
   dragging = false;
   scrollbarThumb.classList.remove('dragging');
-  scrollbarThumb.style.setProperty('cursor', "url('/cursor-grab.svg') 12 12, grab", 'important');
+  scrollbarThumb.style.setProperty('cursor', "url('/cursors/cursor-grab.svg') 12 12, grab", 'important');
   document.body.classList.remove('scrollbar-dragging');
 });
 
@@ -996,8 +996,8 @@ function initFooterPearls() {
 
   // --- Products ---
   const products = [
-    '/assets/mewis/mewi-15.png',
-    '/assets/mewis/mewi-18.png'
+    '/images/productos/mewi-15.png',
+    '/images/productos/mewi-18.png'
   ];
 
   products.forEach((src, i) => {

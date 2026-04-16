@@ -78,7 +78,7 @@ body::-webkit-scrollbar {
   width: 6px;
   z-index: 2147483647;
   pointer-events: all;
-  cursor: url('/cursor-default.svg') 1 1, auto !important;
+  cursor: url('/cursors/cursor-default.svg') 1 1, auto !important;
 }
 
 #custom-scrollbar-thumb {
@@ -130,7 +130,7 @@ main {
 
 /* Custom Cursors — * como base cubre canvas, img, svg, ul, li, nav, etc. */
 * {
-  cursor: url('/cursor-default.svg') 1 1, auto !important;
+  cursor: url('/cursors/cursor-default.svg') 1 1, auto !important;
 }
 
 /* Interables */
@@ -148,7 +148,7 @@ button,
 .valor-row,
 .manifiesto-block,
 [role="button"] {
-  cursor: url('/cursor-pointer.svg') 7 7, pointer !important;
+  cursor: url('/cursors/cursor-pointer.svg') 7 7, pointer !important;
 }
 
 /* Forzar que los hijos de elementos interactivos hereden el puntero */
@@ -172,19 +172,19 @@ button *,
 #map-container,
 .leaflet-container,
 .leaflet-grab {
-  cursor: url('/cursor-grab.svg') 7 7, grab !important;
+  cursor: url('/cursors/cursor-grab.svg') 7 7, grab !important;
 }
 
 .scrollbar-thumb:active,
 #custom-scrollbar-thumb.dragging,
 .leaflet-drag {
-  cursor: url('/cursor-grab.svg') 7 7, grabbing !important;
+  cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
 }
 
 /* Durante drag del scrollbar — fuerza cursor en todo el documento */
 body.scrollbar-dragging,
 body.scrollbar-dragging * {
-  cursor: url('/cursor-grab.svg') 7 7, grabbing !important;
+  cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
 }
 
 html {
@@ -301,11 +301,11 @@ img {
   width: 100px;
   height: 48px;
   background: #6180ae;
-  -webkit-mask-image: url('/Logo Mewi.png');
+  -webkit-mask-image: url('/brand/Logo Mewi.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  mask-image: url('/Logo Mewi.png');
+  mask-image: url('/brand/Logo Mewi.png');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -3303,7 +3303,7 @@ img {
 .footer-pearl,
 .footer-pearl-static {
   position: absolute;
-  background-image: url('/Esfera5.webp');
+  background-image: url('/brand/Esfera5.webp');
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 50%;
@@ -3407,11 +3407,11 @@ img {
   width: 130px;
   height: 64px;
   background: #6180ae;
-  -webkit-mask-image: url('/Logo Mewi.png');
+  -webkit-mask-image: url('/brand/Logo Mewi.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  mask-image: url('/Logo Mewi.png');
+  mask-image: url('/brand/Logo Mewi.png');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -3698,7 +3698,7 @@ img {
 
 .galeria-card:hover,
 .galeria-card:hover img {
-  cursor: url('/cursor-pointer.svg') 7 7, pointer !important;
+  cursor: url('/cursors/cursor-pointer.svg') 7 7, pointer !important;
 }
 
 .galeria-card:hover {

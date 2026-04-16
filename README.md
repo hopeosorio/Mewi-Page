@@ -24,11 +24,13 @@ Mewi-Page/
 ├── index.html               # Documento principal (único HTML)
 ├── vite.config.js           # Configuración de Vite
 ├── package.json
-├── menu.pdf                 # Menú descargable enlazado desde la sección Favoritos
 │
 ├── src/
 │   ├── main.js              # Entry point: Lenis, GSAP, scrollbar, nav, animaciones
-│   ├── map.js               # Mapa Leaflet con marcadores de sucursales
+│   ├── styles/
+│   │   └── main.css         # Estilos globales, secciones, animaciones CSS, responsive
+│   ├── js/
+│   │   └── map.js           # Mapa Leaflet con marcadores de sucursales
 │   ├── components/
 │   │   ├── Favoritos.js     # Render dinámico del carrusel de productos
 │   │   └── Testimonios.js   # Render dinámico de la sección de testimonios
@@ -36,21 +38,22 @@ Mewi-Page/
 │       ├── products.js      # Catálogo de productos (nombre, descripción, imagen)
 │       └── testimonials.js  # Datos de reseñas de clientes
 │
-├── styles/
-│   └── main.css             # Estilos globales, secciones, animaciones CSS, responsive
-│
 └── public/
-    ├── cursor-default.svg   # Cursor personalizado — flecha
-    ├── cursor-pointer.svg   # Cursor personalizado — mano
-    ├── cursor-grab.svg      # Cursor personalizado — agarre (scrollbar/mapa)
-    ├── Logo Mewi.png        # Logo principal
-    ├── Esfera5.webp         # Asset decorativo hero
-    ├── Icono-Tapi.png       # Icono Tapioca
-    └── assets/
-        ├── comunidad/       # Fotos de clientes para la galería cinética
-        ├── equipo/          # Fotos del equipo
-        ├── mewis/           # Imágenes de productos para el marquee
-        └── testimonios/     # Fotos de autores de testimonios
+    ├── brand/
+    │   ├── Logo Mewi.png    # Logo principal
+    │   ├── Icono-Tapi.png   # Icono marcador del mapa
+    │   └── Esfera5.webp     # Asset decorativo del hero
+    ├── cursors/
+    │   ├── cursor-default.svg   # Cursor — flecha
+    │   ├── cursor-pointer.svg   # Cursor — mano
+    │   └── cursor-grab.svg      # Cursor — agarre (scrollbar/mapa)
+    ├── images/
+    │   ├── comunidad/       # Fotos de clientes para la galería cinética
+    │   ├── equipo/          # Fotos del equipo
+    │   ├── productos/       # Imágenes de productos para el marquee y carrusel
+    │   └── testimonios/     # Fotos de autores de reseñas
+    └── docs/
+        └── menu.pdf         # Menú descargable enlazado desde la sección Favoritos
 ```
 
 ---
