@@ -1,6 +1,6 @@
 # Mewi — Landing Page
 
-Landing page oficial de Mewi, marca de bubble tea con presencia en Ciudad de México. El sitio presenta la identidad de la marca, el menú de productos, el equipo, testimonios de clientes, galería de comunidad y ubicación de sucursales.
+Landing page oficial de Mewi, marca de bubble tea con presencia en Dolores Hidalgo Guanajuato, México. El sitio presenta la identidad de la marca, el menú de productos, el equipo, testimonios de clientes, galería de comunidad y ubicación de sucursales.
 
 ---
 
