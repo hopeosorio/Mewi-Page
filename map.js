@@ -1,0 +1,109 @@
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const LOCATIONS = [
+  {
+    name: 'Centro Histórico',
+    address: 'Plaza Principal 12',
+    lat: 21.156844319529093,
+    lng: -100.93434023194997,
+    href: 'https://maps.app.goo.gl/zGGXzkGmdAJRrMRg9'
+  },
+  {
+    name: 'Plaza Paseo Dolores',
+    address: 'Av. Nte. 65, Margaritas',
+    lat: 21.160151911460005,
+    lng: -100.92913339946993,
+    href: 'https://maps.app.goo.gl/uy1fEBBejmPX3dzY9',
+  }
+];
+
+// Centro entre las dos sucursales
+const CENTER = [21.1563, -100.9293];
+
+function makeIcon(active = false) {
+  return L.divIcon({
+    html: `<div class="mewi-pin${active ? ' mewi-pin--active' : ''}">
+             <div class="mewi-pin__dot"></div>
+           </div>`,
+    className: '',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -18],
+  });
+}
+
+function initMap() {
+  const container = document.getElementById('map-container');
+  if (!container) return;
+
+  const map = L.map('map-container', {
+    center: CENTER,
+    zoom: 16,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    attributionControl: false,
+    dragging: true,
+  });
+
+  // CartoDB Positron — estilo limpio beige/cream, sin API key
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  // Atribución mínima en esquina
+  L.control.attribution({ position: 'bottomright', prefix: false })
+    .addAttribution('© <a href="https://carto.com">CARTO</a>')
+    .addTo(map);
+
+  // Pins + popups
+  LOCATIONS.forEach((loc, i) => {
+    const marker = L.marker([loc.lat, loc.lng], { icon: makeIcon(i === 0) })
+      .addTo(map);
+
+    marker.bindPopup(
+      `<div class="mewi-popup">
+         <strong>${loc.name}</strong>
+         <span>${loc.address}</span>
+         <a href="${loc.href}" target="_blank" rel="noopener">Cómo llegar →</a>
+       </div>`,
+      { maxWidth: 200, className: 'mewi-popup-wrap' }
+    );
+
+    // Hover abre popup
+    marker.on('mouseover', () => marker.openPopup());
+
+    // Sincroniza con location-items del panel
+    const item = document.querySelectorAll('.location-item')[i];
+    if (item) {
+      item.addEventListener('mouseenter', () => {
+        marker.openPopup();
+        map.panTo([loc.lat, loc.lng], { animate: true, duration: 0.4 });
+      });
+      item.addEventListener('mouseleave', () => marker.closePopup());
+    }
+  });
+
+  // Habilita scroll solo mientras el cursor está sobre el mapa
+  container.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
+  container.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+
+  // Ajusta el mapa cuando la sección entra en vista (por si estaba oculta al cargar)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        map.invalidateSize();
+        observer.disconnect();
+      }
+    },
+    { threshold: 0.1 }
+  );
+  observer.observe(container);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMap);
+} else {
+  initMap();
+}
