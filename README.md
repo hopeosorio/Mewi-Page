@@ -69,7 +69,7 @@ Mewi-Page/
 | Comunidad | `#ustedes` | Galería cinética de 3 filas con fotos de clientes |
 | Testimonios | `.testimonios` | Grid bento con tarjetas de reseñas |
 | Sucursales | `#location` | Mapa Leaflet con panel de información por sucursal |
-| Redes sociales | `.social` | Cards de Instagram, TikTok y Spotify |
+| Redes sociales | `.social` | Cards de Instagram, Facebook y Google Maps |
 | Footer | `footer` | Links, perlas animadas y créditos |
 
 ---
