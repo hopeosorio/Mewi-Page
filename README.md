@@ -22,10 +22,11 @@ No usa frameworks de UI. Todo el frontend es HTML, CSS y JavaScript vanilla modu
 ## Estructura del proyecto
 
 ```
-Landing page/
+Mewi-Page/
 ├── index.html               # Documento principal (único HTML)
 ├── vite.config.js           # Configuración de Vite
 ├── package.json
+├── menu.pdf                 # Menú descargable enlazado desde la sección Favoritos
 │
 ├── src/
 │   ├── main.js              # Entry point: Lenis, GSAP, scrollbar, nav, animaciones
@@ -34,7 +35,9 @@ Landing page/
 │   ├── components/
 │   │   ├── Favoritos.js     # Render dinámico del carrusel de productos
 │   │   └── Testimonios.js   # Render dinámico de la sección de testimonios
-│   └── data/                # Datos estáticos (productos, testimonios, sucursales)
+│   └── data/
+│       ├── products.js      # Catálogo de productos (nombre, descripción, imagen)
+│       └── testimonials.js  # Datos de reseñas de clientes
 │
 ├── styles/
 │   └── main.css             # Estilos globales, secciones, animaciones CSS, responsive
@@ -59,7 +62,7 @@ Landing page/
 
 | Sección | ID / Clase | Descripción |
 |---|---|---|
-| Hero | `#hero` | Portada con título animado, botón CTA y indicador de scroll |
+| Hero | `#hero` | Portada con título animado, botón CTA e indicador de scroll |
 | Marquee | `.marquee-section` | Banda infinita con fotos de producto y palabras clave |
 | Favoritos | `#favoritos` | Carrusel horizontal de productos con swipe |
 | Nosotros / Manifiesto | `#manifiesto` | Historia y filosofía de la marca con animación de palabras |
@@ -68,7 +71,7 @@ Landing page/
 | Valores | `#valores` | Lista de valores con animación de filas |
 | Comunidad | `#ustedes` | Galería cinética de 3 filas con fotos de clientes |
 | Testimonios | `.testimonios` | Grid bento con tarjetas de reseñas |
-| Sucursales | `#location` | Mapa Leaflet + panel de información por sucursal |
+| Sucursales | `#location` | Mapa Leaflet con panel de información por sucursal |
 | Redes sociales | `.social` | Cards de Instagram, TikTok y Spotify |
 | Footer | `footer` | Links, perlas animadas y créditos |
 
@@ -76,20 +79,20 @@ Landing page/
 
 ## Características técnicas
 
-### Smooth Scroll
+### Smooth scroll
 Lenis maneja el scroll en modo documento (no wrapper). GSAP ScrollTrigger se actualiza mediante el evento `scroll` de Lenis para mantener sincronía perfecta entre animaciones y posición de scroll.
 
 ### Scrollbar personalizado
-Overlay fijo (`position: fixed`, `z-index: 2147483647`) con track transparente y thumb arrastrable. El drag calcula la posición mediante `lenis.animatedScroll` y `lenis.limit`, evitando el uso de `window.scrollY` que es asíncrono. Se inicializa con doble `requestAnimationFrame` para esperar a que Lenis calcule el límite antes del primer render.
+Overlay fijo (`position: fixed`, `z-index: 2147483647`) con track transparente y thumb arrastrable. El drag calcula la posición mediante `lenis.animatedScroll` y `lenis.limit`, evitando el uso de `window.scrollY` que es asíncrono. Se inicializa con doble `requestAnimationFrame` para esperar a que Lenis calcule el límite antes del primer render del thumb.
 
 ### Cursores personalizados
-Tres SVGs en `public/`: default (flecha), pointer (mano) e indicador de agarre. Los cursores se aplican con regla `* { cursor: url(...) }` y prioridad `!important`. Los elementos con `backdrop-filter` tienen `isolation: isolate` para evitar conflictos de compositor.
+Tres SVGs en `public/`: default (flecha), pointer (mano) y grab (agarre para scrollbar y mapa). Se aplican con regla `* { cursor: url(...) !important }`. Los elementos con `backdrop-filter` tienen `isolation: isolate` para evitar conflictos de capa de compositor que sobreescriben el cursor.
 
 ### Galería cinética
-Tres filas de fotos con animación CSS pura (`@keyframes scrollLeft/scrollRight`) a velocidades distintas (40s, 45s, 55s). Las animaciones se pausan al hacer hover para que el usuario pueda explorar las imágenes. El efecto de skew durante el scroll se aplica con GSAP ScrollTrigger sobre el contenedor completo.
+Tres filas de fotos con animación CSS pura (`@keyframes scrollLeft / scrollRight`) a velocidades distintas (40s, 45s, 55s). Las animaciones se pausan al hacer hover. El efecto de skew durante el scroll se aplica con GSAP ScrollTrigger sobre el contenedor completo.
 
 ### Mapa interactivo
-Leaflet con tiles de OpenStreetMap. Marcadores personalizados con ícono de la marca. Panel lateral que muestra información de la sucursal seleccionada (dirección, horario, servicios). Responsive: en móvil el panel se muestra debajo del mapa.
+Leaflet con tiles de OpenStreetMap y marcadores personalizados con el ícono de la marca. Panel lateral que muestra dirección, horario y servicios de la sucursal seleccionada.
 
 ---
 
@@ -109,7 +112,7 @@ npm run build
 npm run preview
 ```
 
-El servidor de desarrollo corre en `http://localhost:5173` por defecto.
+El servidor de desarrollo corre en `http://localhost:3000` por defecto.
 
 ---
 
@@ -117,7 +120,7 @@ El servidor de desarrollo corre en `http://localhost:5173` por defecto.
 
 El proyecto genera un build estático en `dist/` con `npm run build`. Compatible con cualquier hosting estático (Vercel, Netlify, GitHub Pages, servidor Nginx).
 
-Para Vercel, se recomienda agregar un `vercel.json` con rewrite a `index.html` para manejar rutas correctamente:
+Para Vercel se recomienda un `vercel.json` con rewrite a `index.html`:
 
 ```json
 {
