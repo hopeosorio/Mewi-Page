@@ -266,7 +266,6 @@ img {
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  isolation: isolate;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
@@ -645,7 +644,6 @@ img {
       transparent 100%);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
-  isolation: isolate;
   position: relative;
   margin-top: -80px;
   margin-bottom: 0;
@@ -4114,4 +4112,3 @@ button.s-card-cta {
   rotate: 30deg;
   left: auto;
 }
-
