@@ -42,7 +42,8 @@ Mewi-Page/
     ├── brand/
     │   ├── Logo Mewi.png    # Logo principal
     │   ├── Icono-Tapi.png   # Icono marcador del mapa
-    │   └── Esfera5.webp     # Asset decorativo del hero
+    │   ├── Esfera5.webp     # Asset decorativo del hero
+    │   └── icono-web.png    # Icono para la web
     ├── cursors/
     │   ├── cursor-default.svg   # Cursor — flecha
     │   ├── cursor-pointer.svg   # Cursor — mano
