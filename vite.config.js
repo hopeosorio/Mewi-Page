@@ -1,6 +1,27 @@
 import { defineConfig } from 'vite';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function htmlIncludePlugin() {
+  return {
+    name: 'html-include',
+    transformIndexHtml(html) {
+      return html.replace(/<!--\s*@include\s+([\w\/.\-]+)\s*-->/g, (match, file) => {
+        try {
+          return fs.readFileSync(path.resolve(__dirname, file), 'utf-8');
+        } catch (e) {
+          return `<!-- include not found: ${file} -->`;
+        }
+      });
+    }
+  };
+}
 
 export default defineConfig({
+  plugins: [htmlIncludePlugin()],
   server: {
     port: 3000,
     open: true,

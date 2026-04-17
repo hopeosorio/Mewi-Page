@@ -1499,15 +1499,9 @@ img {
   overflow: visible;
   min-height: 180px;
 
-  /* Optimizaciones Pro de Rendimiento */
   content-visibility: auto;
-  /* El navegador salta el renderizado si no está cerca */
   contain-intrinsic-size: 1px 300px;
-  /* Placeholder para el cálculo del layout */
   isolation: isolate;
-  /* Crea un nuevo contexto de apilamiento para reducir cálculos de mezcla */
-  will-change: transform;
-  /* Solo transform para evitar excesivo uso de memoria */
 
   transition:
     background 0.4s ease,
@@ -1930,7 +1924,7 @@ img {
   /* Base apagada */
   margin-right: 0.25em;
   /* Espaciado entre palabras */
-  will-change: opacity, transform, color;
+  will-change: opacity, transform;
 }
 
 /* Highlight Colors for Storytelling */
@@ -2108,7 +2102,6 @@ img {
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
 .manifiesto-block:hover {
@@ -3659,9 +3652,7 @@ img {
   background: none;
   border: none;
   box-shadow: none;
-  /* Rendimiento: Separamos scale y translate de transform para que no pelee con GSAP skew */
   transition: scale 0.5s cubic-bezier(0.16, 1, 0.3, 1), translate 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
-  will-change: transform;
 }
 
 /* Filas con alturas variadas para ritmo visual */
