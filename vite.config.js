@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import compression from 'vite-plugin-compression';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -21,7 +22,11 @@ function htmlIncludePlugin() {
 }
 
 export default defineConfig({
-  plugins: [htmlIncludePlugin()],
+  plugins: [
+    htmlIncludePlugin(),
+    compression({ algorithm: 'gzip' }),
+    compression({ algorithm: 'brotliCompress', ext: '.br' }),
+  ],
   server: {
     port: 3000,
     open: true,

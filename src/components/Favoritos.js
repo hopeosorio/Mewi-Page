@@ -10,10 +10,10 @@ export function renderFavoritos() {
       <div class="item-visual-wrap">
         <div class="item-glow"></div>
         <div class="item-main">
-          <img src="${product.image}" alt="${product.name}" class="showcase-img">
+          <img src="${product.image}" alt="${product.name}" class="showcase-img" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">
         </div>
         <div class="item-reflection">
-          <img src="${product.image}" alt="Reflect" class="showcase-img-reflect">
+          <img src="${product.image}" alt="" class="showcase-img-reflect" loading="lazy" decoding="async" aria-hidden="true">
         </div>
       </div>
       <div class="item-info">

@@ -21,7 +21,17 @@ import { initComunidadAnimations } from './js/comunidad.js';
 import { initLocationAnimations, initOpenStatus, initLiveFeed } from './js/location.js';
 import { initFooterPearls } from './js/footer.js';
 import { initGlobalParallax } from './js/parallax.js';
-import './js/map.js';
+// map.js loaded lazily when section enters viewport
+const mapContainer = document.getElementById('map-container');
+if (mapContainer) {
+  const mapObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      import('./js/map.js');
+      mapObserver.disconnect();
+    }
+  }, { rootMargin: '200px' });
+  mapObserver.observe(mapContainer);
+}
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
