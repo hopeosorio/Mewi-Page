@@ -4,41 +4,44 @@ export function initNav() {
   const nav = document.getElementById('nav');
   const navCta = nav?.querySelector('.nav-cta-dynamic');
   let lastScrollY = 0;
-  let scrollUpStart = null;
-  let navShownAtY = null;
+  let scrollDownStart = null;
+  let scrollUpAccum = 0;
 
   const onScroll = (currentScrollY) => {
     if (!nav) return;
 
     nav.classList.toggle('scrolled', currentScrollY > 50);
 
-    const isScrollingDown = currentScrollY > lastScrollY;
+    const delta = currentScrollY - lastScrollY;
+    lastScrollY = Math.max(0, currentScrollY);
+
+    if (Math.abs(delta) < 1) return;
+
     const isNavHidden = nav.classList.contains('hidden');
 
-    if (isScrollingDown) {
-      scrollUpStart = null;
-      if (currentScrollY > 400) {
-        const downFromShown = navShownAtY !== null ? currentScrollY - navShownAtY : Infinity;
-        if (downFromShown > 60) {
-          nav.classList.add('hidden');
-          navShownAtY = null;
-        }
+    if (currentScrollY < 100) {
+      nav.classList.remove('hidden');
+      scrollDownStart = null;
+      scrollUpAccum = 0;
+    } else if (delta > 0) {
+      scrollUpAccum = 0;
+      if (scrollDownStart === null) scrollDownStart = currentScrollY;
+      if (!isNavHidden && currentScrollY > 400 && (currentScrollY - scrollDownStart) > 80) {
+        nav.classList.add('hidden');
+        scrollDownStart = null;
       }
     } else {
-      if (scrollUpStart === null) scrollUpStart = lastScrollY;
-      const upDistance = scrollUpStart - currentScrollY;
-      if (isNavHidden && (upDistance > 80 || currentScrollY < 100)) {
+      scrollDownStart = null;
+      scrollUpAccum += Math.abs(delta);
+      if (isNavHidden && scrollUpAccum > 60) {
         nav.classList.remove('hidden');
-        navShownAtY = currentScrollY;
-        scrollUpStart = null;
+        scrollUpAccum = 0;
       }
     }
 
     if (navCta) {
       navCta.classList.toggle('is-visible', currentScrollY > 400 && !nav.classList.contains('hidden'));
     }
-
-    lastScrollY = Math.max(0, currentScrollY);
   };
 
   if (window.lenis) {
