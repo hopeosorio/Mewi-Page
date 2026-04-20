@@ -32,6 +32,46 @@ export function initFavoritosCarousel() {
 
   gsap.set(items, { opacity: 1 });
 
+  const btnPrev = showcase.querySelector('.showcase-nav-prev');
+  const btnNext = showcase.querySelector('.showcase-nav-next');
+  const scrollHint = showcase.querySelector('.hint-scroll-favoritos');
+
+  function showHint(el) {
+    if (!el || el.classList.contains('hint-dismissed')) return;
+    el.classList.add('is-visible');
+  }
+
+  function hideHint(el) {
+    if (!el) return;
+    el.classList.remove('is-visible');
+  }
+
+  function updateNavBtns(index) {
+    if (btnPrev) btnPrev.disabled = index === 0;
+    if (btnNext) btnNext.disabled = index === totalItems - 1;
+  }
+
+  function showNavBtns() {
+    btnPrev?.classList.add('is-visible');
+    btnNext?.classList.add('is-visible');
+  }
+
+  function hideNavBtns() {
+    btnPrev?.classList.remove('is-visible');
+    btnNext?.classList.remove('is-visible');
+  }
+
+  // Show/hide based on section visibility
+  const favoritosSection = document.querySelector('.favoritos');
+  if (favoritosSection) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries[0].isIntersecting;
+      if (visible) { showNavBtns(); showHint(scrollHint); }
+      else { hideNavBtns(); hideHint(scrollHint); }
+    }, { threshold: 0.3 });
+    sectionObserver.observe(favoritosSection);
+  }
+
   if (isMobile) {
 
     let currentIndex = 0;
@@ -68,16 +108,25 @@ export function initFavoritosCarousel() {
       else goToSlideMobile(currentIndex - 1);
     }, { passive: true });
 
+    if (btnPrev) btnPrev.addEventListener('click', () => goToSlideMobile(currentIndex - 1));
+    if (btnNext) btnNext.addEventListener('click', () => goToSlideMobile(currentIndex + 1));
+    updateNavBtns(0);
+
     return;
   }
 
   let currentIndex = 0;
   let isAnimating = false;
 
+  updateNavBtns(0);
+  if (btnPrev) btnPrev.addEventListener('click', () => goToSlide(currentIndex - 1));
+  if (btnNext) btnNext.addEventListener('click', () => goToSlide(currentIndex + 1));
+
   function goToSlide(index) {
     if (isAnimating || index < 0 || index >= totalItems) return;
     isAnimating = true;
     currentIndex = index;
+    updateNavBtns(currentIndex);
 
     if (indicator) indicator.textContent = `${(currentIndex + 1).toString().padStart(2, '0')} / ${totalItems}`;
 
@@ -109,8 +158,14 @@ export function initFavoritosCarousel() {
         showcase._observer = Observer.create({
           target: window,
           type: 'wheel,touch,pointer',
-          onRight: () => !isAnimating && (currentIndex < totalItems - 1 ? goToSlide(currentIndex + 1) : null),
-          onLeft: () => !isAnimating && (currentIndex > 0 ? goToSlide(currentIndex - 1) : null),
+          onRight: () => {
+            dismissHint(swipeHint);
+            !isAnimating && (currentIndex < totalItems - 1 ? goToSlide(currentIndex + 1) : null);
+          },
+          onLeft: () => {
+            dismissHint(swipeHint);
+            !isAnimating && (currentIndex > 0 ? goToSlide(currentIndex - 1) : null);
+          },
           tolerance: 10,
           preventDefault: false
         });
@@ -118,8 +173,8 @@ export function initFavoritosCarousel() {
         showcase._observer.enable();
       }
     },
-    onLeave: () => showcase._observer?.disable(),
-    onLeaveBack: () => showcase._observer?.disable(),
-    onEnterBack: () => showcase._observer?.enable(),
+    onLeave: () => { showcase._observer?.disable(); hideNavBtns(); hideHint(scrollHint); },
+    onLeaveBack: () => { showcase._observer?.disable(); hideNavBtns(); hideHint(scrollHint); },
+    onEnterBack: () => { showcase._observer?.enable(); showNavBtns(); showHint(scrollHint); },
   });
 }

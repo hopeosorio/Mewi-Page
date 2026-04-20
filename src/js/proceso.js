@@ -19,6 +19,8 @@ export function initProcesoAnimations() {
     gsap.from(introBg, { scale: 1.3, opacity: 0, duration: 1.5, ease: 'power2.out', scrollTrigger: introST });
   }
 
+  const scrollHintProceso = document.querySelector('.hint-scroll-proceso');
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: '.proceso-sticky',
@@ -27,8 +29,16 @@ export function initProcesoAnimations() {
       pin: true,
       anticipatePin: 1,
       scrub: 0.4,
+      onEnter: () => scrollHintProceso?.classList.add('is-visible'),
+      onEnterBack: () => scrollHintProceso?.classList.add('is-visible'),
+      onLeave: () => scrollHintProceso?.classList.remove('is-visible'),
+      onLeaveBack: () => scrollHintProceso?.classList.remove('is-visible'),
       onUpdate: (self) => {
         gsap.to('.proceso-progress-fill', { width: (self.progress * 100) + '%', duration: 0.1 });
+        if (self.progress > 0.15 && scrollHintProceso && !scrollHintProceso.classList.contains('hint-dismissed')) {
+          scrollHintProceso.classList.remove('is-visible');
+          scrollHintProceso.classList.add('hint-dismissed');
+        }
       }
     }
   });

@@ -1011,6 +1011,74 @@ img {
   letter-spacing: 0.1em;
 }
 
+.showcase-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 44px;
+  padding: 0;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 60;
+  color: rgba(40, 40, 40, 0.75);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.showcase-nav-btn.is-visible { opacity: 1; }
+
+.showcase-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.38);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 4px 28px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+  color: rgba(20, 20, 20, 0.9);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.showcase-nav-btn:active {
+  transform: translateY(-50%) scale(0.96);
+  transition-duration: 0.1s;
+}
+
+.showcase-nav-btn:disabled {
+  opacity: 0.2 !important;
+  pointer-events: none;
+}
+
+.showcase-nav-prev { left: 20px; }
+.showcase-nav-next { right: 20px; }
+
+@media (max-width: 768px) {
+  .showcase-nav-btn {
+    width: 44px;
+    height: 38px;
+    padding: 0;
+    top: auto;
+    bottom: 108px;
+    transform: none;
+  }
+  .showcase-nav-btn:hover  { transform: scale(1.05); }
+  .showcase-nav-btn:active { transform: scale(0.96); }
+  .showcase-nav-prev { left: 12px; }
+  .showcase-nav-next { right: 12px; }
+}
+
 @media (max-width: 1024px) {
   .showcase-item {
     flex-direction: column;
@@ -1328,6 +1396,85 @@ img {
   .proceso-counter {
     right: 24px;
     top: 24px;
+  }
+}
+
+/* ===================================
+   Section Hints (swipe / scroll-down)
+   =================================== */
+@keyframes hint-bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+.section-hint {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.section-hint.is-visible {
+  opacity: 1;
+}
+
+.section-hint.hint-dismissed {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+}
+
+/* Swipe right — vertically centered, right edge */
+.hint-swipe {
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  color: rgba(17, 17, 17, 0.5);
+}
+
+.hint-swipe svg {
+  animation: hint-bounce-arrow 1.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Scroll down — bottom center */
+.hint-scroll-down {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hint-scroll-down svg {
+  animation: hint-bounce-arrow 1.2s ease-in-out infinite;
+}
+
+/* Favoritos scroll hint uses dark text (light bg) */
+.hint-scroll-favoritos {
+  color: rgba(17, 17, 17, 0.45);
+  bottom: 100px;
+}
+
+@media (max-width: 768px) {
+  .hint-swipe {
+    right: 16px;
+    top: auto;
+    bottom: 130px;
+    transform: none;
+    flex-direction: row;
+  }
+  .hint-scroll-favoritos {
+    display: none;
   }
 }
 
