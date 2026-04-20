@@ -300,11 +300,11 @@ img {
   width: 100px;
   height: 48px;
   background: #6180ae;
-  -webkit-mask-image: url('/brand/Logo Mewi.png');
+  -webkit-mask-image: url('/brand/Logo_Mewi.webp');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  mask-image: url('/brand/Logo Mewi.png');
+  mask-image: url('/brand/Logo_Mewi.webp');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -3551,11 +3551,11 @@ img {
   width: 130px;
   height: 64px;
   background: #6180ae;
-  -webkit-mask-image: url('/brand/Logo Mewi.png');
+  -webkit-mask-image: url('/brand/Logo_Mewi.webp');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  mask-image: url('/brand/Logo Mewi.png');
+  mask-image: url('/brand/Logo_Mewi.webp');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;

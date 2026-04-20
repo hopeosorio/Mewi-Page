@@ -23,7 +23,7 @@ const CENTER = [21.1585, -100.9317];
 function makeIcon() {
   // PNG original 1557×1206 → ratio 1.29:1
   return L.icon({
-    iconUrl: '/brand/Icono-Tapi.png',
+    iconUrl: '/brand/Icono-Tapi.webp',
     iconSize: [46, 36],
     iconAnchor: [23, 36],
     popupAnchor: [0, -40],
