@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export function initLocationAnimations() {
   const st = { trigger: '.location', start: 'top 75%', toggleActions: 'play none none reverse' };
 
-  gsap.from('.map-area', { scrollTrigger: st, opacity: 0, scale: 0.97, duration: 1.1, ease: 'power3.out' });
+  gsap.from('.map-area', { scrollTrigger: st, opacity: 0, duration: 1.1, ease: 'power3.out' });
   gsap.from('.location-panel', { scrollTrigger: st, opacity: 0, x: 40, duration: 1, ease: 'power3.out', delay: 0.2 });
 
   gsap.from([

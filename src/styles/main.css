@@ -1088,17 +1088,16 @@ img {
     width: 44px;
     height: 38px;
     padding: 0;
-    top: auto;
-    bottom: 108px;
-    transform: none;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .showcase-nav-btn:hover {
-    transform: scale(1.05);
+    transform: translateY(-50%) scale(1.05);
   }
 
   .showcase-nav-btn:active {
-    transform: scale(0.96);
+    transform: translateY(-50%) scale(0.96);
   }
 
   .showcase-nav-prev {

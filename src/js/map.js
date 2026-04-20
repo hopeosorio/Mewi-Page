@@ -87,8 +87,8 @@ function initMap() {
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
-        map.invalidateSize();
-        map.fitBounds(bounds, { padding: [60, 80] });
+        map.invalidateSize({ animate: false });
+        map.fitBounds(bounds, { padding: [60, 80], animate: false });
         observer.disconnect();
       }
     },
