@@ -47,7 +47,14 @@ export function initNav() {
   if (window.lenis) {
     window.lenis.on('scroll', (e) => onScroll(e.animatedScroll));
   } else {
-    window.addEventListener('scroll', () => onScroll(window.scrollY), { passive: true });
+    let rafId = null;
+    window.addEventListener('scroll', () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        onScroll(window.scrollY);
+        rafId = null;
+      });
+    }, { passive: true });
   }
 
   document.querySelectorAll('a[href^="#"]').forEach(link => {

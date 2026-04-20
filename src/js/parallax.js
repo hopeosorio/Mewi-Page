@@ -20,12 +20,18 @@ export function initGlobalParallax() {
       ease: 'none'
     });
 
-    gsap.to(asset, {
+    const rotateTween = gsap.to(asset, {
       rotate: '+=15',
       duration: 3 + Math.random() * 5,
       repeat: -1,
       yoyo: true,
-      ease: 'sine.inOut'
+      ease: 'sine.inOut',
+      paused: true,
     });
+
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      entries[0].isIntersecting ? rotateTween.resume() : rotateTween.pause();
+    }, { rootMargin: '100px' });
+    visibilityObserver.observe(asset);
   });
 }

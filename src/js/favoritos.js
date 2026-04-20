@@ -159,11 +159,9 @@ export function initFavoritosCarousel() {
           target: window,
           type: 'wheel,touch,pointer',
           onRight: () => {
-            dismissHint(swipeHint);
             !isAnimating && (currentIndex < totalItems - 1 ? goToSlide(currentIndex + 1) : null);
           },
           onLeft: () => {
-            dismissHint(swipeHint);
             !isAnimating && (currentIndex > 0 ? goToSlide(currentIndex - 1) : null);
           },
           tolerance: 10,
