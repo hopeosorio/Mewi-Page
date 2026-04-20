@@ -114,10 +114,12 @@ export function initFooterPearls() {
     prod.loading = 'lazy';
     const size = isMobile ? 140 : 220;
 
+    const leftPositions = isMobile ? [5, 64] : [5, 80];
+    const bottomBase = isMobile ? 20 : -35;
     Object.assign(prod.style, {
       width: `${size}px`,
-      left: `${[5, 80][i]}%`,
-      bottom: `${-35 + Math.random() * 20}px`,
+      left: `${leftPositions[i]}%`,
+      bottom: `${bottomBase + Math.random() * 20}px`,
       zIndex: 30,
       animationDuration: `${12 + Math.random() * 6}s`,
       animationDelay: `${Math.random() * -15}s`,

@@ -125,7 +125,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fefce8 0%, #fef9c3 60%, #fef08a 100%)",
     accentColor: "#ca8a04",
     tag: "🍍 Dorado",
-    image: "/images/productos/mewi.18.png"
+    image: "/images/productos/mewi-18.png"
   },
   {
     name: "Kiwi Kick",

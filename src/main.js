@@ -28,15 +28,21 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 // ===================================
 // Lenis Smooth Scroll
 // ===================================
-window.lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true,
-});
+const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-window.lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => window.lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
+if (!isTouchDevice) {
+  window.lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  window.lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => window.lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+} else {
+  window.lenis = null;
+  window.addEventListener('scroll', ScrollTrigger.update, { passive: true });
+}
 
 // Scrollbar + Nav run outside DOMContentLoaded (ES modules are deferred — DOM is already parsed)
 initScrollbar();

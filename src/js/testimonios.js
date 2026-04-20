@@ -25,22 +25,29 @@ export function initTestimoniosBento() {
     const liftTo = gsap.quickTo(card, 'yPercent', { duration: 0.4, ease: 'power2.out' });
     const scaleTo = gsap.quickTo(card, 'scale', { duration: 0.4, ease: 'power2.out' });
 
-    card.addEventListener('mouseenter', () => { liftTo(-5); scaleTo(1.03); });
+    let cachedRect = null;
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty('--mouse-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
-      card.style.setProperty('--mouse-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
-      xTo((e.clientX - (rect.left + rect.width / 2)) * 0.05);
-      yTo((e.clientY - (rect.top + rect.height / 2)) * 0.05);
+    card.addEventListener('mouseenter', () => {
+      cachedRect = card.getBoundingClientRect();
+      liftTo(-5);
+      scaleTo(1.03);
     });
 
-    card.addEventListener('mouseleave', () => { xTo(0); yTo(0); liftTo(0); scaleTo(1); });
+    card.addEventListener('mousemove', (e) => {
+      if (!cachedRect) return;
+      card.style.setProperty('--mouse-x', `${((e.clientX - cachedRect.left) / cachedRect.width) * 100}%`);
+      card.style.setProperty('--mouse-y', `${((e.clientY - cachedRect.top) / cachedRect.height) * 100}%`);
+      xTo((e.clientX - (cachedRect.left + cachedRect.width / 2)) * 0.05);
+      yTo((e.clientY - (cachedRect.top + cachedRect.height / 2)) * 0.05);
+    });
+
+    card.addEventListener('mouseleave', () => { xTo(0); yTo(0); liftTo(0); scaleTo(1); cachedRect = null; });
   });
 
   const wrappers = gsap.utils.toArray('.testimonio-wrapper');
   const wrapperDepths = wrappers.map(w => parseFloat(w.querySelector('.testimonio-card')?.dataset.depth || 0.1));
-  wrappers.forEach((w, i) => gsap.set(w, { y: 40 * wrapperDepths[i] }));
+  const ySetters = wrappers.map(w => gsap.quickSetter(w, 'y', 'px'));
+  wrappers.forEach((w, i) => ySetters[i](40 * wrapperDepths[i]));
 
   ScrollTrigger.create({
     trigger: '.testimonios',
@@ -49,10 +56,9 @@ export function initTestimoniosBento() {
     scrub: 1,
     onUpdate: (self) => {
       const p = self.progress;
-      wrappers.forEach((w, i) => {
-        const depth = wrapperDepths[i];
-        gsap.set(w, { y: 40 * depth - 80 * depth * p, force3D: true });
-      });
+      for (let i = 0; i < wrappers.length; i++) {
+        ySetters[i]((40 - 80 * p) * wrapperDepths[i]);
+      }
     }
   });
 
@@ -77,7 +83,7 @@ export function initStatsAnimations() {
 
     ScrollTrigger.create({
       trigger: stat,
-      start: 'top 85%',
+      start: 'top bottom',
       once: true,
       onEnter: () => {
         gsap.to(stat, {

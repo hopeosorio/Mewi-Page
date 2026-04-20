@@ -2,37 +2,61 @@ import gsap from 'gsap';
 
 export function initNav() {
   const nav = document.getElementById('nav');
+  const navCta = nav?.querySelector('.nav-cta-dynamic');
   let lastScrollY = 0;
-  let maxScrollY = 0;
+  let scrollUpStart = null;
+  let navShownAtY = null;
 
-  window.lenis.on('scroll', (e) => {
-    const currentScrollY = e.animatedScroll;
+  const onScroll = (currentScrollY) => {
     if (!nav) return;
 
     nav.classList.toggle('scrolled', currentScrollY > 50);
 
-    if (currentScrollY > lastScrollY) {
-      maxScrollY = currentScrollY;
-      if (currentScrollY > 400) nav.classList.add('hidden');
+    const isScrollingDown = currentScrollY > lastScrollY;
+    const isNavHidden = nav.classList.contains('hidden');
+
+    if (isScrollingDown) {
+      scrollUpStart = null;
+      if (currentScrollY > 400) {
+        const downFromShown = navShownAtY !== null ? currentScrollY - navShownAtY : Infinity;
+        if (downFromShown > 60) {
+          nav.classList.add('hidden');
+          navShownAtY = null;
+        }
+      }
     } else {
-      const upDistance = maxScrollY - currentScrollY;
-      if (upDistance > 150 || currentScrollY < 50) nav.classList.remove('hidden');
+      if (scrollUpStart === null) scrollUpStart = lastScrollY;
+      const upDistance = scrollUpStart - currentScrollY;
+      if (isNavHidden && (upDistance > 80 || currentScrollY < 100)) {
+        nav.classList.remove('hidden');
+        navShownAtY = currentScrollY;
+        scrollUpStart = null;
+      }
     }
 
-    const navCta = nav.querySelector('.nav-cta-dynamic');
     if (navCta) {
-      const isNavHidden = nav.classList.contains('hidden');
-      navCta.classList.toggle('is-visible', currentScrollY > 400 && !isNavHidden);
+      navCta.classList.toggle('is-visible', currentScrollY > 400 && !nav.classList.contains('hidden'));
     }
 
     lastScrollY = Math.max(0, currentScrollY);
-  });
+  };
+
+  if (window.lenis) {
+    window.lenis.on('scroll', (e) => onScroll(e.animatedScroll));
+  } else {
+    window.addEventListener('scroll', () => onScroll(window.scrollY), { passive: true });
+  }
 
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const target = document.querySelector(link.getAttribute('href'));
-      if (target) window.lenis.scrollTo(target, { offset: -100 });
+      if (!target) return;
+      if (window.lenis) {
+        window.lenis.scrollTo(target, { offset: -100 });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 }

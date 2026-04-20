@@ -25,6 +25,7 @@ export function initProcesoAnimations() {
       start: 'top top',
       end: `+=${panels.length * 90}%`,
       pin: true,
+      anticipatePin: 1,
       scrub: 0.4,
       onUpdate: (self) => {
         gsap.to('.proceso-progress-fill', { width: (self.progress * 100) + '%', duration: 0.1 });

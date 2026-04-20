@@ -1,4 +1,6 @@
 export function initScrollbar() {
+  if (!window.lenis) return;
+
   const scrollbarTrack = document.createElement('div');
   scrollbarTrack.id = 'custom-scrollbar';
   scrollbarTrack.setAttribute('aria-hidden', 'true');

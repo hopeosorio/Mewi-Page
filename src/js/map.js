@@ -18,7 +18,7 @@ const LOCATIONS = [
   }
 ];
 
-const CENTER = [21.1563, -100.9293];
+const CENTER = [21.1585, -100.9317];
 
 function makeIcon() {
   // PNG original 1557×1206 → ratio 1.29:1
@@ -36,7 +36,7 @@ function initMap() {
 
   const map = L.map('map-container', {
     center: CENTER,
-    zoom: 16,
+    zoom: 15,
     zoomControl: false,
     scrollWheelZoom: false,
     attributionControl: false,
@@ -82,11 +82,13 @@ function initMap() {
 
   // Zoom por scroll/gestos deshabilitado permanentemente en desktop
 
-  // Corrige tamaño si el mapa se inicializó mientras la sección estaba oculta
+  // Corrige tamaño y centra ambas sucursales al hacerse visible
+  const bounds = L.latLngBounds(LOCATIONS.map(loc => [loc.lat, loc.lng]));
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
         map.invalidateSize();
+        map.fitBounds(bounds, { padding: [60, 80] });
         observer.disconnect();
       }
     },
