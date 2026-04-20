@@ -539,6 +539,9 @@ img {
   display: inline-block;
   width: 1.6em;
   text-align-last: justify;
+  color: #6180ae;
+  -webkit-text-fill-color: #6180ae;
+  background: none;
 }
 
 .hero-title-mobile {
