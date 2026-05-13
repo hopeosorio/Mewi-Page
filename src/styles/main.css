@@ -1753,9 +1753,7 @@ img {
 /* Base Card Styling */
 .testimonio-card {
   height: 100%;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  background: rgba(255, 255, 255, 0.92);
   isolation: isolate;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 40px;
@@ -1767,7 +1765,7 @@ img {
   min-height: 180px;
 
   content-visibility: auto;
-  contain-intrinsic-size: 1px 300px;
+  contain-intrinsic-size: auto 300px;
   isolation: isolate;
 
   transition:
@@ -1825,6 +1823,8 @@ img {
   .testimonio-card:hover {
     background: rgba(255, 255, 255, 1);
     border-color: rgba(97, 128, 174, 0.2);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
     box-shadow:
       0 24px 48px -12px rgba(97, 128, 174, 0.15),
       0 0 0 1px rgba(97, 128, 174, 0.05);
@@ -3983,13 +3983,16 @@ img {
   gap: 20px;
   transform: rotate(-3deg) scale(1.1);
   padding: 40px 0;
+  contain: layout style;
   /* Optimización: máscara estática a nivel de contenedor para no repintar en scroll */
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
 .galeria-row {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
+  will-change: transform;
 }
 
 .galeria-track {
@@ -4072,6 +4075,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 20px;
   transition: scale 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

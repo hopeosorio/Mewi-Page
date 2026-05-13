@@ -19,48 +19,60 @@ export function initTestimoniosBento() {
     ease: 'expo.out', force3D: true
   });
 
-  cards.forEach(card => {
-    const xTo = gsap.quickTo(card, 'x', { duration: 0.6, ease: 'power3.out' });
-    const yTo = gsap.quickTo(card, 'y', { duration: 0.6, ease: 'power3.out' });
-    const liftTo = gsap.quickTo(card, 'yPercent', { duration: 0.4, ease: 'power2.out' });
-    const scaleTo = gsap.quickTo(card, 'scale', { duration: 0.4, ease: 'power2.out' });
+  const hasHover = window.matchMedia('(hover: hover)').matches;
 
-    let cachedRect = null;
+  if (hasHover) {
+    cards.forEach(card => {
+      const xTo = gsap.quickTo(card, 'x', { duration: 0.6, ease: 'power3.out' });
+      const yTo = gsap.quickTo(card, 'y', { duration: 0.6, ease: 'power3.out' });
+      const liftTo = gsap.quickTo(card, 'yPercent', { duration: 0.4, ease: 'power2.out' });
+      const scaleTo = gsap.quickTo(card, 'scale', { duration: 0.4, ease: 'power2.out' });
 
-    card.addEventListener('mouseenter', () => {
-      cachedRect = card.getBoundingClientRect();
-      liftTo(-5);
-      scaleTo(1.03);
+      let cachedRect = null;
+      let mouseRafId = null;
+
+      card.addEventListener('mouseenter', () => {
+        cachedRect = card.getBoundingClientRect();
+        liftTo(-5);
+        scaleTo(1.03);
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        if (!cachedRect || mouseRafId) return;
+        const cx = e.clientX, cy = e.clientY;
+        mouseRafId = requestAnimationFrame(() => {
+          card.style.setProperty('--mouse-x', `${((cx - cachedRect.left) / cachedRect.width) * 100}%`);
+          card.style.setProperty('--mouse-y', `${((cy - cachedRect.top) / cachedRect.height) * 100}%`);
+          xTo((cx - (cachedRect.left + cachedRect.width / 2)) * 0.05);
+          yTo((cy - (cachedRect.top + cachedRect.height / 2)) * 0.05);
+          mouseRafId = null;
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (mouseRafId) { cancelAnimationFrame(mouseRafId); mouseRafId = null; }
+        xTo(0); yTo(0); liftTo(0); scaleTo(1); cachedRect = null;
+      });
     });
 
-    card.addEventListener('mousemove', (e) => {
-      if (!cachedRect) return;
-      card.style.setProperty('--mouse-x', `${((e.clientX - cachedRect.left) / cachedRect.width) * 100}%`);
-      card.style.setProperty('--mouse-y', `${((e.clientY - cachedRect.top) / cachedRect.height) * 100}%`);
-      xTo((e.clientX - (cachedRect.left + cachedRect.width / 2)) * 0.05);
-      yTo((e.clientY - (cachedRect.top + cachedRect.height / 2)) * 0.05);
-    });
+    const wrappers = gsap.utils.toArray('.testimonio-wrapper');
+    const wrapperDepths = wrappers.map(w => parseFloat(w.querySelector('.testimonio-card')?.dataset.depth || 0.1));
+    const ySetters = wrappers.map(w => gsap.quickSetter(w, 'y', 'px'));
+    wrappers.forEach((w, i) => ySetters[i](40 * wrapperDepths[i]));
 
-    card.addEventListener('mouseleave', () => { xTo(0); yTo(0); liftTo(0); scaleTo(1); cachedRect = null; });
-  });
-
-  const wrappers = gsap.utils.toArray('.testimonio-wrapper');
-  const wrapperDepths = wrappers.map(w => parseFloat(w.querySelector('.testimonio-card')?.dataset.depth || 0.1));
-  const ySetters = wrappers.map(w => gsap.quickSetter(w, 'y', 'px'));
-  wrappers.forEach((w, i) => ySetters[i](40 * wrapperDepths[i]));
-
-  ScrollTrigger.create({
-    trigger: '.testimonios',
-    start: 'top bottom',
-    end: 'bottom top',
-    scrub: 1,
-    onUpdate: (self) => {
-      const p = self.progress;
-      for (let i = 0; i < wrappers.length; i++) {
-        ySetters[i]((40 - 80 * p) * wrapperDepths[i]);
+    ScrollTrigger.create({
+      trigger: '.testimonios',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1,
+      onUpdate: (self) => {
+        const p = self.progress;
+        for (let i = 0; i < wrappers.length; i++) {
+          ySetters[i]((40 - 80 * p) * wrapperDepths[i]);
+        }
       }
-    }
-  });
+    });
+  }
 
   gsap.to('.testimonios-bg-text', {
     scrollTrigger: { trigger: '.testimonios', start: 'top bottom', end: 'bottom top', scrub: 1.2 },

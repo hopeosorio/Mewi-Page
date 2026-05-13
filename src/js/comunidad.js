@@ -18,48 +18,17 @@ export function initComunidadAnimations() {
 
   const galeriaST = { trigger: '.galeria-cinetica', start: 'top bottom', end: 'bottom top', scrub: 0.5 };
   gsap.utils.toArray('.galeria-row').forEach((row, i) => {
-    gsap.to(row, { scrollTrigger: galeriaST, x: i % 2 === 0 ? -100 : 100, ease: 'none' });
+    gsap.to(row, { scrollTrigger: galeriaST, x: i % 2 === 0 ? -50 : 50, ease: 'none' });
   });
 
-  let currentSkew = 0;
-  let targetSkew = 0;
-  let isSkewing = false;
-  const galeriaCards = gsap.utils.toArray('.galeria-card');
-
-  const updateSkew = () => {
-    currentSkew += (targetSkew - currentSkew) * 0.1;
-    targetSkew *= 0.95;
-
-    if (Math.abs(currentSkew) < 0.05 && Math.abs(targetSkew) < 0.05) {
-      currentSkew = 0;
-      targetSkew = 0;
-      gsap.set(galeriaCards, { skewX: 0 });
-      gsap.ticker.remove(updateSkew);
-      isSkewing = false;
-      return;
-    }
-    gsap.set(galeriaCards, { skewX: currentSkew, force3D: true });
-  };
-
-  ScrollTrigger.create({
-    trigger: '.galeria-cinetica',
-    start: 'top bottom',
-    end: 'bottom top',
-    onUpdate: (self) => {
-      targetSkew = gsap.utils.clamp(-3, 3, self.getVelocity() / 500);
-      if (Math.abs(targetSkew) > 0.1 && !isSkewing) {
-        isSkewing = true;
-        gsap.ticker.add(updateSkew);
-      }
-    }
-  });
 
   const comunidadSection = document.querySelector('.comunidad');
   if (comunidadSection) {
     const observer = new IntersectionObserver((entries) => {
       const isVisible = entries[0].isIntersecting;
       document.querySelectorAll('.galeria-track').forEach(track => {
-        track.style.animationPlayState = isVisible ? 'running' : 'paused';
+        // Empty string removes inline style so CSS :hover rule can take effect when visible
+        track.style.animationPlayState = isVisible ? '' : 'paused';
       });
     }, { threshold: 0 });
     observer.observe(comunidadSection);
