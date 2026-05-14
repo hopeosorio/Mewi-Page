@@ -83,6 +83,7 @@ export function initFavoritosCarousel() {
       if (isAnimating || index < 0 || index >= totalItems) return;
       isAnimating = true;
       currentIndex = index;
+      updateNavBtns(currentIndex);
       if (indicator) indicator.textContent = `${(index + 1).toString().padStart(2, '0')} / ${totalItems}`;
       gsap.to(track, {
         xPercent: -100 * index / totalItems,

@@ -8,6 +8,7 @@ import { renderFavoritos } from './components/Favoritos.js';
 import { renderTestimonios } from './components/Testimonios.js';
 
 import { initNav, initMagneticButtons } from './js/nav.js';
+import { initTheme } from './js/theme.js';
 import { initScrollbar } from './js/scrollbar.js';
 import { initHeroAnimations } from './js/hero.js';
 import { initFavoritosCarousel } from './js/favoritos.js';
@@ -62,6 +63,7 @@ if (!isTouchDevice) {
 // Scrollbar + Nav run outside DOMContentLoaded (ES modules are deferred — DOM is already parsed)
 initScrollbar();
 initNav();
+initTheme();
 
 // ===================================
 // Init All

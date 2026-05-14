@@ -30,6 +30,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/inter-latin.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/plus-jakarta-sans-latin.woff2">
   <link rel="stylesheet" href="/src/styles/main.css">
+  <meta name="theme-color" content="transparent">
+  <!-- Anti-flash: set theme before first paint -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('mewi-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
 </head>
 
 <body>

@@ -7,6 +7,7 @@
 
 /* CSS Variables */
 :root {
+  color-scheme: light;
   --color-bg: #faf9f7;
   --color-bg-alt: #f5f3f0;
   --color-surface: #ffffff;
@@ -84,7 +85,9 @@ body::-webkit-scrollbar {
 }
 
 @media (max-width: 768px) {
-  #custom-scrollbar { display: none; }
+  #custom-scrollbar {
+    display: none;
+  }
 }
 
 #custom-scrollbar-thumb {
@@ -291,6 +294,12 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .nav-logo .logo-text {
@@ -4541,6 +4550,7 @@ button.s-card-cta {
   rotate: 30deg;
   left: auto;
 }
+
 /* ===================================
    Comunidad — Mobile
    =================================== */
@@ -4610,9 +4620,206 @@ button.s-card-cta {
 }
 
 /* ===================================
+   Theme Toggle Button
+   =================================== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base), transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-alt);
+  transform: scale(1.08);
+}
+
+/* Light mode → show moon (hint: click to go dark) */
+[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .icon-moon {
+  display: block;
+}
+
+/* Dark mode → show sun (hint: click to go light) */
+[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+/* ===================================
+   Dark Mode
+   =================================== */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #16100b;
+  --color-bg-alt: #1d1410;
+  --color-surface: #261a12;
+  --color-text: #ede0cc;
+  --color-text-secondary: #b09880;
+  --color-text-muted: #7a6858;
+  --color-border: #3a2818;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.7);
+}
+
+/* Nav scrolled: bg adapts to dark bg */
+[data-theme="dark"] .nav.scrolled {
+  background: rgba(22, 16, 11, 0.75);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Marquee scrim: adapts to dark bg */
+[data-theme="dark"] .marquee-section {
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(22, 16, 11, 0.05) 5%,
+      rgba(22, 16, 11, 0.15) 10%,
+      rgba(22, 16, 11, 0.3) 20%,
+      rgba(22, 16, 11, 0.4) 30%,
+      rgba(22, 16, 11, 0.4) 70%,
+      rgba(22, 16, 11, 0.3) 80%,
+      rgba(22, 16, 11, 0.15) 90%,
+      rgba(22, 16, 11, 0.05) 95%,
+      transparent 100%);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none;
+}
+
+/* Footer: tea-dark gradient in dark mode looks even better */
+[data-theme="dark"] .footer {
+  background: linear-gradient(to bottom,
+      var(--color-bg) 0%,
+      #2a1e14 30%,
+      #1e1510 65%,
+      #16110c 85%,
+      #100c08 100%);
+}
+
+/* Proceso watermark number: slightly more visible on dark bg */
+[data-theme="dark"] .proceso-panel-bg {
+  color: rgba(255, 255, 255, 0.06);
+}
+
+/* Hero — fade bottom edge para cubrir recorte de orbs */
+[data-theme="dark"] .hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Mobile hero bg: stronger blue on dark */
+@media (max-width: 768px) {
+  [data-theme="dark"] .hero-bg {
+    background:
+      radial-gradient(ellipse 80% 60% at 0% 0%, rgba(97, 128, 174, 0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(79, 172, 254, 0.20) 0%, transparent 70%);
+  }
+}
+
+/* Favoritos: hardcoded #111 / #666 */
+[data-theme="dark"] .item-title {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .item-desc {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .item-bg-text {
+  color: #fff;
+  opacity: 0.05;
+}
+
+[data-theme="dark"] .showcase-indicator {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .showcase-progress {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .showcase-progress-bar {
+  background: var(--color-text);
+}
+
+[data-theme="dark"] .showcase-nav-btn {
+  color: rgba(220, 205, 185, 0.85);
+}
+
+/* Equipo — 3 value-items con bg blanco */
+[data-theme="dark"] .equipo-value-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .equipo-value-item:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* Testimonios — cards con bg blanco */
+[data-theme="dark"] .testimonio-card {
+  background: rgba(38, 26, 18, 0.85);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+[data-theme="dark"] .testimonio-card:hover {
+  background: rgba(50, 35, 22, 0.95);
+  border-color: rgba(97, 128, 174, 0.3);
+}
+
+/* Marquee outline: trazo negro invisible en dark */
+[data-theme="dark"] .marquee-item.item-outline {
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Favoritos — fondo hardcodeado #fdfdfc */
+[data-theme="dark"] .favoritos,
+[data-theme="dark"] .favoritos-showcase {
+  background: var(--color-bg);
+}
+
+/* Títulos globales hardcodeados #111 / #666 */
+[data-theme="dark"] .section-title {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .section-subtitle {
+  color: var(--color-text-secondary);
+}
+
+/* Testimonios — badge de plataforma (Google / Instagram) */
+[data-theme="dark"] .testimonio-platform {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
    Reduced Motion
    =================================== */
 @media (prefers-reduced-motion: reduce) {
+
   .gradient-orb,
   .scroll-line,
   .marquee-content,
