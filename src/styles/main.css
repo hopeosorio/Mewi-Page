@@ -4620,6 +4620,39 @@ button.s-card-cta {
 }
 
 /* ===================================
+   View Transitions — theme toggle
+   =================================== */
+/* Nav excluido del crossfade: backdrop-filter no se captura en screenshots */
+.nav {
+  view-transition-name: nav;
+}
+
+::view-transition-group(nav),
+::view-transition-old(nav),
+::view-transition-new(nav) {
+  animation-duration: 0s;
+}
+
+/* Crossfade suave para el resto de la página */
+::view-transition-old(root) {
+  animation: 220ms ease-out both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms ease-in both vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ===================================
    Theme Toggle Button
    =================================== */
 .theme-toggle {
