@@ -16,10 +16,12 @@ export function initComunidadAnimations() {
     });
   });
 
-  const galeriaST = { trigger: '.galeria-cinetica', start: 'top bottom', end: 'bottom top', scrub: 0.5 };
-  gsap.utils.toArray('.galeria-row').forEach((row, i) => {
-    gsap.to(row, { scrollTrigger: galeriaST, x: i % 2 === 0 ? -50 : 50, ease: 'none' });
-  });
+  if (window.innerWidth > 768) {
+    const galeriaST = { trigger: '.galeria-cinetica', start: 'top bottom', end: 'bottom top', scrub: 0.5 };
+    gsap.utils.toArray('.galeria-row').forEach((row, i) => {
+      gsap.to(row, { scrollTrigger: galeriaST, x: i % 2 === 0 ? -50 : 50, ease: 'none' });
+    });
+  }
 
 
   const comunidadSection = document.querySelector('.comunidad');

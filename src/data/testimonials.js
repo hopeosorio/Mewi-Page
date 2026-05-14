@@ -2,14 +2,14 @@ export const testimonials = [
   {
     author: "Victoria Miroslava",
     role: "Mewina de Corazón ❤️",
-    avatar: "/images/testimonios/testimonio-3.webp",
+    avatar: "/images/testimonios/testimonio-3-min.webp",
     text: "Los quiero mucho mewinos❤️. Feliz año Tapi!❤️‍🩹",
     platform: "Instagram"
   },
   {
     author: "Carlos Vargas",
     role: "Explorador de Frappés 🥤",
-    avatar: "/images/testimonios/testimonio-1.webp",
+    avatar: "/images/testimonios/testimonio-1-min.webp",
     text: "Sus múltiples opciones de frappé son deliciosas",
     stars: 5,
     platform: "Google"
@@ -34,28 +34,28 @@ export const testimonials = [
   {
     author: "Emili Alvarado",
     role: "Mewi Lover Distante 🥺",
-    avatar: "/images/testimonios/testimonio-7.webp",
+    avatar: "/images/testimonios/testimonio-7-min.webp",
     text: "Ya quiero ir a Dolores otra ves por mi Mewii 🥺",
     platform: "Instagram"
   },
   {
     author: "Lupita Guzmán",
     role: "Energía Explosiva 💥",
-    avatar: "/images/testimonios/testimonio-4.webp",
+    avatar: "/images/testimonios/testimonio-4-min.webp",
     text: "Me encantan los mewiii💥🧨💥😋😋😋",
     platform: "Facebook"
   },
   {
     author: "Ricky Almaraz",
     role: "Capitán de la Familia Mewi 👨‍👧‍👦",
-    avatar: "/images/testimonios/testimonio-8.webp",
+    avatar: "/images/testimonios/testimonio-8-min.webp",
     text: "Mamaaaaa miaaa … Papá con 4 hijos fans !! Soy de Querétaro pero iré hasta donde están por esos preciosos y los deliciosos productos que tienen ahí 🍄",
     platform: "Instagram"
   },
   {
     author: "Citlali CL",
     role: "Fans de 10 Estrellas ⭐",
-    avatar: "/images/testimonios/testimonio-5.webp",
+    avatar: "/images/testimonios/testimonio-5-min.webp",
     text: "5 toes up and 5 hands up 😍…",
     stars: 5,
     platform: "Google"
@@ -63,7 +63,7 @@ export const testimonials = [
   {
     author: "Zaira Soto",
     role: "Voz Foodie 📸",
-    avatar: "/images/testimonios/testimonio-9.webp",
+    avatar: "/images/testimonios/testimonio-9-min.webp",
     text: "Amamos Mewiii!!!⭐",
     platform: "Instagram"
   },
@@ -79,14 +79,14 @@ export const testimonials = [
   {
     author: "Mimi",
     role: "Taro Addict Forever 😭",
-    avatar: "/images/testimonios/testimonio-10.webp",
+    avatar: "/images/testimonios/testimonio-10-min.webp",
     text: "Recuerdo que la primera vez que probé el taro fue allí y ahora es mi bebida favorita Quiero volver😭",
     platform: "Instagram"
   },
   {
     author: "Sopis",
     role: "Mewi Lover de Corazón 🫶🏻",
-    avatar: "/images/testimonios/testimonio-6.webp",
+    avatar: "/images/testimonios/testimonio-6-min.webp",
     avatarColor: "linear-gradient(135deg, #24477aff, #c2cc39ff)",
     text: "Amamos los mewis 🫶🏻⭐️",
     platform: "Instagram"
@@ -94,7 +94,7 @@ export const testimonials = [
   {
     author: "David Hernandez",
     role: "Embajador de Good Vibes 💙",
-    avatar: "/images/testimonios/testimonio-2.webp",
+    avatar: "/images/testimonios/testimonio-2-min.webp",
     text: "Ustedes fueron lo mejor de todo mi año thank you @mewi_mx 💙✨",
     platform: "Instagram"
   },

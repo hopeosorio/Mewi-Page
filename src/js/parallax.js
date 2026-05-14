@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function initGlobalParallax() {
+  if (('ontouchstart' in window) || navigator.maxTouchPoints > 0) return;
   gsap.utils.toArray('.parallax-asset').forEach((asset) => {
     const isProceso = asset.classList.contains('proceso-parallax-asset');
     const speed = parseFloat(asset.dataset.speed) || 0.1;

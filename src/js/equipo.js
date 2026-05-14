@@ -23,11 +23,6 @@ export function initEquipoAnimations() {
     .to('.equipo-stat-sep', { scaleY: 1, duration: 0.5 }, '-=0.4')
     .to('.equipo-value-item', { opacity: 1, x: 0, duration: 0.5, stagger: 0.08 }, '-=0.3');
 
-  const equipoST = { trigger: '.equipo', start: 'top bottom', end: 'bottom top', scrub: 1 };
-  gsap.to('.piece-1 svg', { scrollTrigger: equipoST, y: 80, ease: 'none', force3D: true });
-  gsap.to('.piece-2 svg', { scrollTrigger: equipoST, y: 120, ease: 'none', force3D: true });
-  gsap.to('.piece-3 svg', { scrollTrigger: equipoST, y: 60, ease: 'none', force3D: true });
-
   gsap.utils.toArray('.equipo-stat-num').forEach(stat => {
     const val = parseInt(stat.innerText);
     ScrollTrigger.create({

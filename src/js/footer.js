@@ -107,7 +107,7 @@ export function initFooterPearls() {
   }, { threshold: 0 });
   observer.observe(container);
 
-  ['/images/productos/mewi-15.webp', '/images/productos/mewi-18.webp'].forEach((src, i) => {
+  ['/images/productos/mewi-15-min.webp', '/images/productos/mewi-18-min.webp'].forEach((src, i) => {
     const prod = document.createElement('img');
     prod.src = src;
     prod.className = 'footer-product-float';

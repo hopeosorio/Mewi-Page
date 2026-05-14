@@ -5,7 +5,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fdf6ee 0%, #f5e8d0 60%, #e8d4b0 100%)",
     accentColor: "#c9813a",
     tag: "🤎 Signature",
-    image: "/images/productos/mewi-1.webp"
+    image: "/images/productos/mewi-1-sm.webp"
   },
   {
     name: "Mango Passionate",
@@ -13,7 +13,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff8e7 0%, #ffedcc 60%, #ffd99a 100%)",
     accentColor: "#f59e0b",
     tag: "🥭 Tropical",
-    image: "/images/productos/mewi-2.webp"
+    image: "/images/productos/mewi-2-sm.webp"
   },
   {
     name: "Matcha Zen",
@@ -21,7 +21,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f0fdf4 0%, #dcfce7 60%, #bbf7d0 100%)",
     accentColor: "#16a34a",
     tag: "🍵 Premium",
-    image: "/images/productos/mewi-3.webp"
+    image: "/images/productos/mewi-3-sm.webp"
   },
   {
     name: "Berry Pinky",
@@ -29,7 +29,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff1f2 0%, #ffe4e6 60%, #fecdd3 100%)",
     accentColor: "#e11d48",
     tag: "🍓 Favorito",
-    image: "/images/productos/mewi-4.webp"
+    image: "/images/productos/mewi-4-sm.webp"
   },
   {
     name: "Taro Mystic",
@@ -37,7 +37,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 60%, #ddd6fe 100%)",
     accentColor: "#7c3aed",
     tag: "💜 Viral",
-    image: "/images/productos/mewi-6.webp"
+    image: "/images/productos/mewi-6-sm.webp"
   },
   {
     name: "Honey Jasmine",
@@ -45,7 +45,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fafaf9 0%, #f5f5f4 60%, #e7e5e4 100%)",
     accentColor: "#44403c",
     tag: "🌼 Delicado",
-    image: "/images/productos/mewi-7.webp"
+    image: "/images/productos/mewi-7-sm.webp"
   },
   {
     name: "Oreo Overload",
@@ -53,7 +53,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%)",
     accentColor: "#0f172a",
     tag: "🍪 Indulgente",
-    image: "/images/productos/mewi-8.webp"
+    image: "/images/productos/mewi-8-sm.webp"
   },
   {
     name: "Dragon Fruit Spark",
@@ -61,7 +61,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fdf2f8 0%, #fce7f3 60%, #fbcfe8 100%)",
     accentColor: "#db2777",
     tag: "💖 Vibrante",
-    image: "/images/productos/mewi-10.webp"
+    image: "/images/productos/mewi-10-sm.webp"
   },
   {
     name: "Thai Sunset",
@@ -69,7 +69,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff7ed 0%, #ffedd5 60%, #fed7aa 100%)",
     accentColor: "#ea580c",
     tag: "🧡 Exótico",
-    image: "/images/productos/mewi-11.webp"
+    image: "/images/productos/mewi-11-sm.webp"
   },
   {
     name: "Blueberry Bliss",
@@ -77,7 +77,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #eff6ff 0%, #dbeafe 60%, #bfdbfe 100%)",
     accentColor: "#2563eb",
     tag: "💙 Cremoso",
-    image: "/images/productos/mewi-12.webp"
+    image: "/images/productos/mewi-12-sm.webp"
   },
   {
     name: "Coffee Rush",
@@ -85,7 +85,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fafaf9 0%, #f5f5f4 60%, #e7e5e4 100%)",
     accentColor: "#44403c",
     tag: "⚡ Energía",
-    image: "/images/productos/mewi-13.webp"
+    image: "/images/productos/mewi-13-sm.webp"
   },
   {
     name: "Avocado Cream",
@@ -93,7 +93,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f7fee7 0%, #ecfccb 60%, #d9f99d 100%)",
     accentColor: "#65a30d",
     tag: "🥑 Nutritivo",
-    image: "/images/productos/mewi-14.webp"
+    image: "/images/productos/mewi-14-sm.webp"
   },
   {
     name: "Lychee Love",
@@ -101,7 +101,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff1f2 0%, #ffe4e6 60%, #fecdd3 100%)",
     accentColor: "#e11d48",
     tag: "🤍 Floral",
-    image: "/images/productos/mewi-15.webp"
+    image: "/images/productos/mewi-15-sm.webp"
   },
   {
     name: "Peach Perfection",
@@ -109,7 +109,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff7ed 0%, #ffedd5 60%, #fed7aa 100%)",
     accentColor: "#f97316",
     tag: "🍑 Refrescante",
-    image: "/images/productos/mewi-16.webp"
+    image: "/images/productos/mewi-16-sm.webp"
   },
   {
     name: "Watermelon Wave",
@@ -117,7 +117,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fef2f2 0%, #fee2e2 60%, #fecaca 100%)",
     accentColor: "#dc2626",
     tag: "🍉 Verano",
-    image: "/images/productos/mewi-17.webp"
+    image: "/images/productos/mewi-17-sm.webp"
   },
   {
     name: "Golden Pineapple",
@@ -125,7 +125,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fefce8 0%, #fef9c3 60%, #fef08a 100%)",
     accentColor: "#ca8a04",
     tag: "🍍 Dorado",
-    image: "/images/productos/mewi-18.webp"
+    image: "/images/productos/mewi-18-sm.webp"
   },
   {
     name: "Kiwi Kick",
@@ -133,7 +133,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f0fdf4 0%, #dcfce7 60%, #bbf7d0 100%)",
     accentColor: "#16a34a",
     tag: "🥝 Ácido",
-    image: "/images/productos/mewi-19.webp"
+    image: "/images/productos/mewi-19-sm.webp"
   },
   {
     name: "Coconut Cloud",
@@ -141,7 +141,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%)",
     accentColor: "#475569",
     tag: "🥥 Soft",
-    image: "/images/productos/mewi-20.webp"
+    image: "/images/productos/mewi-20-sm.webp"
   },
   {
     name: "Passion Fruit Punch",
@@ -149,7 +149,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fff7ed 0%, #ffedd5 60%, #fed7aa 100%)",
     accentColor: "#ea580c",
     tag: "🔥 Intenso",
-    image: "/images/productos/mewi-21.webp"
+    image: "/images/productos/mewi-21-sm.webp"
   },
   {
     name: "Lemon Zing",
@@ -157,7 +157,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #fefce8 0%, #fef9c3 60%, #fef08a 100%)",
     accentColor: "#ca8a04",
     tag: "🍋 Cítrico",
-    image: "/images/productos/mewi-22.webp"
+    image: "/images/productos/mewi-22-sm.webp"
   },
   {
     name: "Grape Galaxy",
@@ -165,7 +165,7 @@ export const products = [
     gradient: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 60%, #ddd6fe 100%)",
     accentColor: "#7c3aed",
     tag: "🍇 Poderoso",
-    image: "/images/productos/mewi-23.webp"
+    image: "/images/productos/mewi-23-sm.webp"
   },
   {
     name: "Melon Magic",
@@ -173,6 +173,6 @@ export const products = [
     gradient: "linear-gradient(180deg, #f0fdf4 0%, #dcfce7 60%, #bbf7d0 100%)",
     accentColor: "#16a34a",
     tag: "🍈 Dulce",
-    image: "/images/productos/mewi-24.webp"
+    image: "/images/productos/mewi-24-sm.webp"
   }
 ];

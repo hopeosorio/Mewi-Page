@@ -32,7 +32,7 @@ export function initScrollbar() {
     return thumbH;
   }
 
-  updateTrackBounds();
+  requestAnimationFrame(updateTrackBounds);
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const limit = window.lenis.limit;

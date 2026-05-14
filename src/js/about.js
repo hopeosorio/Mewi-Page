@@ -35,7 +35,7 @@ export function initAboutAnimations() {
   });
 
   const words = gsap.utils.toArray('.about-w');
-  gsap.set(words, { opacity: 0.15, y: 15 });
+  gsap.set(words, { opacity: 0, y: 15 });
 
   gsap.to(words, {
     scrollTrigger: { trigger: '.about', start: 'top 60%', end: 'bottom 80%', scrub: 1 },

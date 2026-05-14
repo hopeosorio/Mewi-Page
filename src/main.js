@@ -52,6 +52,11 @@ if (!isTouchDevice) {
 } else {
   window.lenis = null;
   window.addEventListener('scroll', ScrollTrigger.update, { passive: true });
+
+  // Safari iOS: scroll events son asíncronos y el address bar
+  // dispara resize al cambiar dirección → ambos causan freeze en GSAP.
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  ScrollTrigger.normalizeScroll(true);
 }
 
 // Scrollbar + Nav run outside DOMContentLoaded (ES modules are deferred — DOM is already parsed)
@@ -65,35 +70,51 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFavoritos();
   renderTestimonios();
 
-  document.fonts.ready.then(() => {
-    initMagneticButtons();
-    initHeroAnimations();
-    initFavoritosCarousel();
-    initProcesoAnimations();
-    initValoresAnimations();
-    initTestimoniosBento();
-    initStatsAnimations();
-    initAboutAnimations();
-    initManifiestoAnimations();
-    initEquipoAnimations();
-    initLocationAnimations();
-    initOpenStatus();
-    initLiveFeed();
-    initFooterPearls();
-    initComunidadAnimations();
+  // Init immediately — visible on first paint
+  initHeroAnimations();
+  initOpenStatus();
+  initLiveFeed();
+  if (!isTouchDevice) requestAnimationFrame(() => initMagneticButtons());
+  requestAnimationFrame(() => requestAnimationFrame(initGlobalParallax));
 
-    gsap.from('.social-card', {
-      scrollTrigger: { trigger: '.social-grid', start: 'top 85%', toggleActions: 'play none none reverse' },
+  // Lazy-init sections as they approach viewport.
+  // Observers are set up immediately (no fonts gate) so ScrollTriggers exist
+  // before the user starts scrolling — prevents mid-scroll GSAP batch refresh
+  // that caused scroll freezes on mobile.
+  function lazyInit(selector, fn) {
+    const el = document.querySelector(selector);
+    if (!el) { fn(); return; }
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { obs.disconnect(); fn(); }
+    }, { rootMargin: '400px 0px' });
+    obs.observe(el);
+  }
+
+  lazyInit('.favoritos', initFavoritosCarousel);
+  lazyInit('.proceso', initProcesoAnimations);
+  lazyInit('.valores', initValoresAnimations);
+  lazyInit('.about', initAboutAnimations);
+  lazyInit('.manifiesto', initManifiestoAnimations);
+  lazyInit('.equipo', initEquipoAnimations);
+  lazyInit('.testimonios', () => { initTestimoniosBento(); initStatsAnimations(); });
+  lazyInit('.comunidad', initComunidadAnimations);
+  lazyInit('.location', initLocationAnimations);
+  lazyInit('.footer', initFooterPearls);
+  lazyInit('.social-proof', () => {
+    gsap.from('.s-card', {
+      scrollTrigger: { trigger: '.social-cards', start: 'top 85%', toggleActions: 'play none none reverse' },
       opacity: 0, y: 60, duration: 0.8, stagger: 0.15, ease: 'power3.out'
     });
-
+  });
+  lazyInit('.final-cta', () => {
     gsap.from('.cta-content', {
       scrollTrigger: { trigger: '.final-cta', start: 'top 75%', toggleActions: 'play none none reverse' },
       opacity: 0, y: 80, scale: 0.95, duration: 1.2, ease: 'power3.out'
     });
+  });
 
-    initGlobalParallax();
-
+  // After fonts load, refresh ScrollTrigger measurements (corrects layout-dependent positions)
+  document.fonts.ready.then(() => {
     setTimeout(() => ScrollTrigger.refresh(), 100);
   });
 });

@@ -1,3 +1,5 @@
+@import './fonts.css';
+
 /* ===================================
    MEWI - Premium Landing Page
    Inspired by godly.website top picks
@@ -132,63 +134,61 @@ main {
   overflow-x: hidden;
 }
 
-/* Custom Cursors — * como base cubre canvas, img, svg, ul, li, nav, etc. */
-* {
-  cursor: url('/cursors/cursor-default.svg') 1 1, auto !important;
-}
+/* Custom Cursors — only on true pointer devices, not touch/mobile */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: url('/cursors/cursor-default.svg') 1 1, auto !important;
+  }
 
-/* Interables */
-a,
-button,
-.btn,
-.nav-link,
-.magnetic,
-.favoritos-item,
-.testimonio-card,
-.location-item,
-.social-card,
-.s-card,
-.equipo-value-item,
-.valor-row,
-.manifiesto-block,
-[role="button"] {
-  cursor: url('/cursors/cursor-pointer.svg') 7 7, pointer !important;
-}
+  a,
+  button,
+  .btn,
+  .nav-link,
+  .magnetic,
+  .favoritos-item,
+  .testimonio-card,
+  .location-item,
+  .social-card,
+  .s-card,
+  .equipo-value-item,
+  .valor-row,
+  .manifiesto-block,
+  [role="button"] {
+    cursor: url('/cursors/cursor-pointer.svg') 7 7, pointer !important;
+  }
 
-/* Forzar que los hijos de elementos interactivos hereden el puntero */
-a *,
-button *,
-.btn *,
-.nav-link *,
-.magnetic *,
-.favoritos-item *,
-.testimonio-card *,
-.location-item *,
-.equipo-value-item *,
-.valor-row *,
-.manifiesto-block * {
-  cursor: inherit !important;
-}
+  a *,
+  button *,
+  .btn *,
+  .nav-link *,
+  .magnetic *,
+  .favoritos-item *,
+  .testimonio-card *,
+  .location-item *,
+  .equipo-value-item *,
+  .valor-row *,
+  .manifiesto-block * {
+    cursor: inherit !important;
+  }
 
-/* Grabbables (Mapa y Scrollbar) */
-.scrollbar-thumb,
-#custom-scrollbar-thumb,
-#map-container,
-.leaflet-container,
-.leaflet-grab {
-  cursor: url('/cursors/cursor-grab.svg') 7 7, grab !important;
-}
+  .scrollbar-thumb,
+  #custom-scrollbar-thumb,
+  #map-container,
+  .leaflet-container,
+  .leaflet-grab {
+    cursor: url('/cursors/cursor-grab.svg') 7 7, grab !important;
+  }
 
-.scrollbar-thumb:active,
-#custom-scrollbar-thumb.dragging,
-.leaflet-drag {
-  cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
-}
+  .scrollbar-thumb:active,
+  #custom-scrollbar-thumb.dragging,
+  .leaflet-drag {
+    cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
+  }
 
-/* Durante drag del scrollbar — fuerza cursor en todo el documento */
-body.scrollbar-dragging,
-body.scrollbar-dragging * {
-  cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
+  body.scrollbar-dragging,
+  body.scrollbar-dragging * {
+    cursor: url('/cursors/cursor-grab.svg') 7 7, grabbing !important;
+  }
 }
 
 html {
@@ -675,6 +675,26 @@ img {
 
   .scroll-indicator {
     display: none;
+  }
+
+  /* Orbs + grain: capas GPU pesadas con filter:blur(120px) + SVG feTurbulence
+     → principales culpables del lento primer paint en Safari iOS */
+  .gradient-orb,
+  .grain-overlay {
+    display: none;
+  }
+
+  /* Reemplaza los orbs con gradiente estático — mismo color, sin blur ni animación */
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 80% 60% at 0% 0%, rgba(97, 128, 174, 0.28) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(79, 172, 254, 0.12) 0%, transparent 70%);
+  }
+
+  /* backdrop-filter costoso en Safari iOS — sobre el fold, bloquea primer paint */
+  .marquee-section {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
 
@@ -1178,7 +1198,11 @@ img {
   }
 
   .item-bg-text {
-    font-size: 55vw;
+    display: none;
+  }
+
+  .item-main {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
   }
 
   .showcase-controls {
@@ -2516,13 +2540,6 @@ img {
   z-index: 10;
 }
 
-.collage-piece svg {
-  width: 100%;
-  transform: scale(1.03) translateY(-5px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
 .piece-1 {
   grid-row: 1 / 3;
   margin-right: 8px;
@@ -2536,23 +2553,6 @@ img {
 .piece-3 {
   grid-column: 2;
   background: linear-gradient(180deg, rgba(168, 197, 222, 0.7) 0%, rgba(124, 159, 201, 0.85) 100%);
-}
-
-.collage-piece svg {
-  position: absolute;
-  top: -20%;
-  left: 0;
-  width: 100%;
-  height: 140%;
-  /* Más alto para tener espacio de parallax */
-  object-fit: cover;
-  opacity: 0.5;
-  will-change: transform;
-}
-
-.collage-piece:hover svg {
-  opacity: 0.8;
-  transform: scale(1.1) rotate(5deg);
 }
 
 .equipo-overlay {
@@ -4104,6 +4104,8 @@ img {
 
 /* Local images fix for Equipo */
 .equipo-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -4111,7 +4113,7 @@ img {
 }
 
 .collage-piece:hover .equipo-img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 /* ===================================
@@ -4539,6 +4541,74 @@ button.s-card-cta {
   rotate: 30deg;
   left: auto;
 }
+/* ===================================
+   Comunidad — Mobile
+   =================================== */
+@media (max-width: 768px) {
+  .comunidad {
+    padding: 60px 0 60px;
+  }
+
+  .comunidad-hero {
+    padding: 0 20px 36px;
+  }
+
+  .galeria-cinetica {
+    gap: 12px;
+    padding: 20px 0;
+    transform: rotate(-2deg) scale(1.06);
+  }
+
+  .galeria-card {
+    width: 200px;
+    height: 250px;
+    border-radius: 14px;
+    /* Sin hover en touch */
+    transition: none;
+  }
+
+  .galeria-card img {
+    border-radius: 14px;
+    transition: none;
+  }
+
+  .row-right .galeria-card {
+    height: 280px;
+  }
+
+  .row-left-slow .galeria-card {
+    height: 230px;
+  }
+
+  .galeria-track {
+    gap: 12px;
+    animation-duration: 22s;
+  }
+
+  .row-right .galeria-track {
+    animation-duration: 26s;
+  }
+
+  .row-left-slow .galeria-track {
+    animation-duration: 32s;
+  }
+
+  /* Hover effects no aplican en touch */
+  .galeria-card:hover {
+    scale: 1;
+    translate: none;
+    box-shadow: none;
+  }
+
+  .galeria-card:hover img {
+    scale: 1;
+  }
+
+  .galeria-row:hover .galeria-track {
+    animation-play-state: running;
+  }
+}
+
 /* ===================================
    Reduced Motion
    =================================== */
