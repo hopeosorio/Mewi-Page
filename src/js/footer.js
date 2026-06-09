@@ -107,14 +107,14 @@ export function initFooterPearls() {
   }, { threshold: 0 });
   observer.observe(container);
 
-  ['/images/productos/mewi-15-min.webp', '/images/productos/mewi-18-min.webp'].forEach((src, i) => {
+  ['/images/productos/mewi-1.webp', '/images/productos/mewi-12.webp'].forEach((src, i) => {
     const prod = document.createElement('img');
     prod.src = src;
     prod.className = 'footer-product-float';
     prod.loading = 'lazy';
-    const size = isMobile ? 140 : 220;
+    const size = isMobile ? 240 : 380;
 
-    const leftPositions = isMobile ? [5, 64] : [5, 80];
+    const leftPositions = isMobile ? [-8, 54] : [5, 72];
     const bottomBase = isMobile ? 20 : -35;
     Object.assign(prod.style, {
       width: `${size}px`,

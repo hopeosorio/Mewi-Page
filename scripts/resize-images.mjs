@@ -4,8 +4,7 @@ import { join } from 'path';
 
 const PRODUCTOS_DIR = 'public/images/productos';
 
-// Marquee images need tiny thumbs (displayed at ~37-40px, thumb at 2× = 80px)
-const MARQUEE_IMAGES = ['mewi-1', 'mewi-12', 'mewi-15', 'mewi-16', 'mewi-18', 'mewi-20', 'mewi-21'];
+const MARQUEE_IMAGES = ['mewi-1', 'mewi-2', 'mewi-3', 'mewi-4', 'mewi-6', 'mewi-8', 'mewi-10', 'mewi-12'];
 
 // All showcase product images get -sm.webp (displayed ~130-160px, target 2× = 300px height)
 const files = await readdir(PRODUCTOS_DIR);
