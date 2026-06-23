@@ -41,6 +41,7 @@ export default defineConfig({
         main: 'index.html',
         privacidad: 'privacidad.html',
         soporte: 'soporte.html',
+        'eliminar-cuenta': 'eliminar-cuenta.html',
       }
     }
   },
