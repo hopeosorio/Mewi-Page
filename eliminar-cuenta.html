@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Eliminar cuenta — MEWI</title>
+  <link rel="icon" type="image/png" href="/brand/icono-web.webp">
+  <meta name="description"
+    content="Cómo eliminar tu cuenta y datos personales de la app Mewi.">
+  <meta name="robots" content="index, follow">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/inter-latin.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/plus-jakarta-sans-latin.woff2">
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/styles/pages.css">
+  <meta name="theme-color" content="transparent">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('mewi-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <!-- @include src/sections/nav-sub.html -->
+
+      <main>
+        <section class="page-hero">
+          <div class="page-hero-inner">
+            <span class="page-label">Cuenta</span>
+            <h1 class="page-title">Eliminar cuenta</h1>
+            <p class="page-meta">Última actualización: junio de 2026</p>
+          </div>
+        </section>
+
+        <section class="page-body">
+          <div class="page-container prose">
+
+            <h2>Cómo eliminar tu cuenta desde la app</h2>
+            <p>
+              Puedes eliminar tu cuenta de Mewi en cualquier momento directamente
+              desde la aplicación siguiendo estos pasos:
+            </p>
+            <ol>
+              <li>Abre la app <strong>Mewi</strong></li>
+              <li>Ve a la sección <strong>Perfil</strong></li>
+              <li>Toca <strong>Editar perfil</strong></li>
+              <li>Desplázate hasta el final y toca <strong>Eliminar cuenta</strong></li>
+              <li>Confirma tu contraseña y acepta la confirmación</li>
+            </ol>
+            <p>
+              La eliminación es <strong>inmediata y permanente</strong>. Una vez completada no es posible recuperar tu cuenta ni ninguno de tus datos.
+            </p>
+
+            <h2>Qué datos se eliminan</h2>
+            <p>Al eliminar tu cuenta se borran de forma permanente:</p>
+            <ul>
+              <li>Nombre, correo electrónico, número de teléfono y fecha de nacimiento</li>
+              <li>Foto de perfil</li>
+              <li>Puntos acumulados, nivel y historial de transacciones</li>
+              <li>Recompensas pendientes de canjear</li>
+              <li>Historial de notificaciones y eventos de geolocalización</li>
+              <li>Token de notificaciones push</li>
+              <li>Historial de referidos</li>
+            </ul>
+
+            <h2>Datos que se conservan temporalmente</h2>
+            <p>
+              Por razones de integridad contable y auditoría interna, los registros
+              de compras asociados a tu cuenta pueden conservarse hasta
+              <strong>90 días</strong> adicionales, después de los cuales son eliminados
+              de forma definitiva. Durante ese período los datos no son accesibles
+              desde ninguna interfaz de usuario.
+            </p>
+
+            <h2>Solicitud por correo electrónico</h2>
+            <p>
+              Si no puedes acceder a la app para eliminar tu cuenta, puedes
+              enviarnos una solicitud a
+              <a href="mailto:mewi.story@gmail.com">mewi.story@gmail.com</a>
+              indicando el correo electrónico asociado a tu cuenta. Procesaremos
+              tu solicitud en un plazo máximo de <strong>7 días hábiles</strong>.
+            </p>
+
+            <h2>Más información</h2>
+            <p>
+              Para conocer en detalle cómo tratamos tus datos consulta nuestra
+              <a href="/privacidad">Política de Privacidad</a>.
+              Si tienes cualquier otra duda escríbenos a
+              <a href="mailto:mewi.story@gmail.com">mewi.story@gmail.com</a>.
+            </p>
+
+          </div>
+        </section>
+      </main>
+
+      <!-- @include src/sections/footer-sub.html -->
+
+    </div>
+  </div>
+  <script type="module" src="/src/js/page.js"></script>
+</body>
+
+</html>
