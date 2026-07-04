@@ -2928,8 +2928,9 @@ img {
 
 .apk-modal::backdrop {
   background: rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* !important evita que esbuild colapse el par prefijado en la build de prod */
+  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
 .apk-modal-close {
