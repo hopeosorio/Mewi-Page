@@ -44,7 +44,7 @@ function buildCard(t, index) {
 
   const isImage = t.avatar && (t.avatar.includes('.') || t.avatar.startsWith('/') || t.avatar.startsWith('http'));
   const avatarContent = isImage
-    ? `<img loading="lazy" src="${t.avatar}" alt="${t.author}" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">`
+    ? `<img loading="lazy" decoding="async" src="${t.avatar}" alt="${t.author}" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">`
     : `<span>${t.avatar || t.author.substring(0, 2).toUpperCase()}</span>`;
   const avatarStyle = `background:${t.avatarColor || 'var(--color-accent-1)'}; overflow: hidden;`;
 

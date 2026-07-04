@@ -54,7 +54,7 @@ export function initFooterPearls() {
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(drawCanvasPearls, 200);
+    resizeTimer = setTimeout(() => { drawCanvasPearls(); drawStaticPearls(); }, 200);
   });
 
   const domLayers = [
@@ -63,9 +63,48 @@ export function initFooterPearls() {
     { count: isMobile ? 25 : 55, bottomRange: [30, 150], sizeMin: 30, sizeMax: 48, opacity: 0.8, animated: 'full', speedMult: 1.2 },
   ];
 
+  // Static (non-animated) pearls were 450 DOM nodes on desktop — each an
+  // absolutely-positioned webp-backed div = heavy paint + compositor layers.
+  // Rendered on a canvas instead: same webp, same z-index (50), same
+  // distribution/brightness/opacity. Zero visual or animation change.
+  const staticLayer = domLayers[0];
+  const staticCanvas = document.createElement('canvas');
+  staticCanvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:50;';
+  container.appendChild(staticCanvas);
+
+  const staticPearls = [];
+  for (let i = 0; i < staticLayer.count; i++) {
+    staticPearls.push({
+      size: Math.random() * (staticLayer.sizeMax - staticLayer.sizeMin) + staticLayer.sizeMin,
+      left: Math.random() * 115 - 7.5,
+      bottom: Math.random() * (staticLayer.bottomRange[1] - staticLayer.bottomRange[0]) + staticLayer.bottomRange[0],
+      opacity: staticLayer.opacity - Math.random() * 0.2,
+      brightness: 0.5 + Math.random() * 0.6,
+    });
+  }
+
+  const pearlImg = new Image();
+  function drawStaticPearls() {
+    if (!pearlImg.complete || !pearlImg.naturalWidth) return;
+    staticCanvas.width = container.offsetWidth;
+    staticCanvas.height = container.offsetHeight;
+    const ctx = staticCanvas.getContext('2d');
+    ctx.clearRect(0, 0, staticCanvas.width, staticCanvas.height);
+    staticPearls.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.filter = `brightness(${p.brightness})`;
+      ctx.drawImage(pearlImg, (p.left / 100) * staticCanvas.width, staticCanvas.height - p.bottom - p.size, p.size, p.size);
+      ctx.restore();
+    });
+  }
+  pearlImg.onload = drawStaticPearls;
+  pearlImg.src = '/brand/Esfera5.webp';
+
   const fragment = document.createDocumentFragment();
 
   domLayers.forEach((layer, layerIdx) => {
+    if (!layer.animated) return; // static layer now drawn on staticCanvas above
     for (let i = 0; i < layer.count; i++) {
       const pearl = document.createElement('div');
       const isFull = layer.animated === 'full';
