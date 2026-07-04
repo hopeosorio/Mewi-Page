@@ -97,8 +97,23 @@ function initMap() {
   observer.observe(container);
 }
 
+// Difiere la init pesada de Leaflet (parseo + descarga de tiles) hasta que la
+// sección esté por entrar en vista. rootMargin adelanta la carga para que el
+// mapa ya esté listo antes de ser visible — mismo resultado visual.
+function bootstrapMap() {
+  const container = document.getElementById('map-container');
+  if (!container) return;
+  const io = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      io.disconnect();
+      initMap();
+    }
+  }, { rootMargin: '200px' });
+  io.observe(container);
+}
+
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initMap);
+  document.addEventListener('DOMContentLoaded', bootstrapMap);
 } else {
-  initMap();
+  bootstrapMap();
 }
