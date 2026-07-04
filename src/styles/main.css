@@ -1237,6 +1237,13 @@ img {
    =================================== */
 .proceso {
   /* height managed by GSAP pin spacer */
+  /* Azul en el contenedor in-flow (no en el sticky pinneado, que es fixed).
+     iOS con theme-color:transparent muestrea el contenido bajo la barra; un
+     elemento position:fixed azul deja ese tint ATASCADO al salir (por eso el
+     bug era exclusivo de proceso y no de about/manifiesto, que son azules
+     in-flow y sí revierten). Con el azul aquí, el sticky va transparente y la
+     superficie muestreada vuelve a ser in-flow → la barra revierte sola. */
+  background: var(--color-accent-1);
 }
 
 .proceso-intro {
@@ -1252,8 +1259,7 @@ img {
 
 .proceso-sticky {
   height: 100vh;
-  background: var(--color-accent-1);
-  /* Revertido al color original por solicitud del usuario */
+  background: transparent; /* el azul vive en .proceso (in-flow); ver nota arriba */
   overflow: hidden;
   position: relative;
   display: flex;
