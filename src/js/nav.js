@@ -40,7 +40,11 @@ export function initNav() {
     }
 
     if (navCta) {
-      navCta.classList.toggle('is-visible', currentScrollY > 400 && !nav.classList.contains('hidden'));
+      // Visibilidad SOLO por scroll, desacoplada de .hidden: el CTA es hijo del nav,
+      // así que al ocultarse el nav (opacity) el CTA se desvanece con él. Si se atara
+      // a !hidden, cada hide/show re-dispararía su animación de entrada (translateY+
+      // scale) = el "salto" al salir de la primera sección.
+      navCta.classList.toggle('is-visible', currentScrollY > 400);
     }
   };
 

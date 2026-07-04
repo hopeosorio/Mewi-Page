@@ -60,7 +60,9 @@ function initNav() {
       }
     }
     if (navCta) {
-      navCta.classList.toggle('is-visible', currentScrollY > 400 && !nav.classList.contains('hidden'));
+      // Solo por scroll, desacoplado de .hidden (evita re-disparar la animación de
+      // entrada del CTA en cada hide/show). Ver nota en nav.js.
+      navCta.classList.toggle('is-visible', currentScrollY > 400);
     }
   };
 

@@ -268,6 +268,7 @@ img {
   z-index: 1000;
   padding: 24px 0;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
     padding 0.3s ease,
     background 0.3s ease,
     backdrop-filter 0.3s ease;
@@ -355,7 +356,32 @@ img {
   }
 
   .nav-inner {
-    padding: 0 24px;
+    padding: 0 16px;
+  }
+
+  /* Header flotante en móvil: separado del borde superior (salvando el notch) y de
+     los laterales. En iOS 26 Safari deriva el color del status bar del background de
+     un elemento fixed pegado al borde (la "frente"); al flotar como pill, el nav deja
+     de ser ese elemento → iOS muestrea el CONTENIDO edge-to-edge detrás. Resultado:
+     sin franja de color, el status bar muestra el contenido y sigue el tema. */
+  .nav {
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+
+  .nav.scrolled {
+    border-radius: 20px;
+    border-bottom: none;
+  }
+
+  /* Auto-ocultar en móvil desvaneciendo en su lugar (no translateY, que arrastra el
+     glass por el borde superior y iOS lo muestrea). */
+  .nav.hidden {
+    transform: none;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

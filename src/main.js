@@ -123,7 +123,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let resizeTimer;
+let lastWidth = window.innerWidth;
 window.addEventListener('resize', () => {
+  // iOS: la barra de Safari colapsa/expande al invertir scroll → dispara resize (solo
+  // cambia ALTO). Refrescar ScrollTrigger ahí recalcula todos los triggers/pins/scrub
+  // a mitad de scroll = el "salto". En touch, refrescar SOLO si cambia el ANCHO
+  // (rotación/resize real); ignorar los cambios de solo-alto de la barra.
+  if (isTouchDevice && window.innerWidth === lastWidth) return;
+  lastWidth = window.innerWidth;
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
 });
