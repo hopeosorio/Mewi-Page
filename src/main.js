@@ -54,10 +54,11 @@ if (!isTouchDevice) {
   window.lenis = null;
   window.addEventListener('scroll', ScrollTrigger.update, { passive: true });
 
-  // Safari iOS: scroll events son asíncronos y el address bar
-  // dispara resize al cambiar dirección → ambos causan freeze en GSAP.
+  // Touch: dejar el scroll NATIVO (fluido, en hilo de compositor). No usar
+  // normalizeScroll: su listener no-passive fuerza el scroll al hilo principal
+  // = trabado en iOS/iPad. El address bar (resize al cambiar dirección) ya se
+  // neutraliza con ignoreMobileResize, sin sacrificar fluidez.
   ScrollTrigger.config({ ignoreMobileResize: true });
-  ScrollTrigger.normalizeScroll(true);
 }
 
 // Scrollbar + Nav run outside DOMContentLoaded (ES modules are deferred — DOM is already parsed)
