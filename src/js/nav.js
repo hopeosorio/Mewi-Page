@@ -73,6 +73,50 @@ export function initNav() {
       }
     });
   });
+
+  initMobileMenu();
+}
+
+// Menú móvil desplegable (usado por la landing y las subpáginas)
+export function initMobileMenu() {
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  if (!burger || !mobileMenu || !nav) return;
+
+  // El CTA del menú solo aparece pasando la primera sección (>400px). En el hero ya
+  // está el "Conoce más" de hero-actions → evitar duplicarlo.
+  const mobileCta = mobileMenu.querySelector('.nav-mobile-cta');
+  if (mobileCta) {
+    const syncCta = () => mobileCta.classList.toggle('is-hidden', (window.scrollY || 0) <= 400);
+    syncCta();
+    window.addEventListener('scroll', syncCta, { passive: true });
+  }
+
+  const closeMenu = () => {
+    if (!mobileMenu.classList.contains('open')) return;
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  };
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !mobileMenu.classList.contains('open');
+    if (willOpen) {
+      // el menú es fixed y hermano del nav: alinearlo bajo el pill
+      mobileMenu.style.top = `${nav.getBoundingClientRect().bottom + 8}px`;
+    }
+    mobileMenu.classList.toggle('open', willOpen);
+    burger.classList.toggle('open', willOpen);
+    burger.setAttribute('aria-expanded', String(willOpen));
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('open') &&
+        !nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('scroll', closeMenu, { passive: true });
 }
 
 export function initMagneticButtons() {

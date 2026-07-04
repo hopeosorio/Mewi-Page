@@ -1,5 +1,6 @@
 import Lenis from 'lenis';
 import gsap from 'gsap';
+import { initMobileMenu } from './nav.js';
 
 function initLenis() {
   const lenis = new Lenis({
@@ -73,4 +74,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initTheme();
   initNav();
+  initMobileMenu();
 });

@@ -350,8 +350,141 @@ img {
   color: #6180ae;
 }
 
+/* Hamburguesa + menú desplegable: solo móvil (ocultos en desktop) */
+.nav-burger,
+.nav-mobile-menu {
+  display: none;
+}
+
+.nav-burger {
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition-base);
+}
+
+.nav-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+}
+
+/* 3 líneas → X */
+.nav-burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-mobile-menu {
+  /* fixed (sibling del nav, no hijo) → backdrop-filter muestrea la página. top lo pone
+     JS bajo el pill. Mismo glass que .nav.scrolled. */
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top center;
+  transition: opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.28s;
+}
+
+[data-theme="dark"] .nav-mobile-menu {
+  background: rgba(22, 16, 11, 0.75);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.nav-mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.nav-mobile-link {
+  padding: 13px 14px;
+  border-radius: 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  /* entrada escalonada al abrir */
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.nav-mobile-menu.open .nav-mobile-link {
+  opacity: 1;
+  transform: translateY(0);
+  transition: background var(--transition-fast), color var(--transition-fast),
+    opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-mobile-menu.open .nav-mobile-link:nth-child(1) { transition-delay: 0.04s; }
+.nav-mobile-menu.open .nav-mobile-link:nth-child(2) { transition-delay: 0.08s; }
+.nav-mobile-menu.open .nav-mobile-link:nth-child(3) { transition-delay: 0.12s; }
+.nav-mobile-menu.open .nav-mobile-link:nth-child(4) { transition-delay: 0.16s; }
+.nav-mobile-menu.open .nav-mobile-link:nth-child(5) { transition-delay: 0.20s; }
+
+.nav-mobile-link:active {
+  background: var(--color-bg-alt);
+  color: #6180ae;
+}
+
+.nav-mobile-cta {
+  margin-top: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Oculto en la primera sección (el hero ya tiene su "Conoce más"). Especificidad 0,2,0
+   para ganar a .btn{display:inline-flex}. */
+.nav-mobile-cta.is-hidden {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .nav-center {
+    display: none;
+  }
+
+  /* En móvil el pill lleva solo logo + tema + hamburguesa; CTA y links van al menú */
+  .nav-burger {
+    display: flex;
+  }
+
+  .nav-mobile-menu {
+    display: flex;
+  }
+
+  /* .nav-right para ganar a .btn{display:inline-flex} (misma especificidad, va después) */
+  .nav-right .nav-cta-dynamic {
     display: none;
   }
 
@@ -4859,23 +4992,20 @@ button.s-card-cta {
   animation-duration: 0s;
 }
 
-/* Crossfade suave para el resto de la página */
+/* Reveal circular del nuevo tema desde el centro del botón (origen/radio los pasa
+   theme.js en --vt-x/--vt-y/--vt-r). El viejo queda fijo debajo mientras el nuevo
+   crece encima. Fallback a centro si no hay vars. */
 ::view-transition-old(root) {
-  animation: 220ms ease-out both vt-fade-out;
+  animation: none;
 }
 
 ::view-transition-new(root) {
-  animation: 220ms ease-in both vt-fade-in;
+  animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both vt-circle;
 }
 
-@keyframes vt-fade-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-
-@keyframes vt-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes vt-circle {
+  from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%)); }
+  to   { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 50%)); }
 }
 
 /* ===================================
@@ -4895,9 +5025,18 @@ button.s-card-cta {
   flex-shrink: 0;
 }
 
-.theme-toggle:hover {
-  background: var(--color-bg-alt);
-  transform: scale(1.08);
+/* hover solo en punteros reales: en touch el :hover se quedaba pegado tras tocar */
+@media (hover: hover) {
+  .theme-toggle:hover {
+    background: var(--color-bg-alt);
+    transform: scale(1.08);
+  }
+}
+
+/* feedback de press (mismo patrón que .showcase-nav-btn:active) */
+.theme-toggle:active {
+  transform: scale(0.88);
+  transition-duration: 0.1s;
 }
 
 /* Light mode → show moon (hint: click to go dark) */

@@ -24,8 +24,8 @@ export function initOpenStatus() {
     }).format(now), 10
   );
 
-  const isOpen = mxHour >= 10 && mxHour < 22;
-  const hoursText = isOpen ? 'Abierto · 10:00 – 22:00' : 'Cerrado · Abre a las 10:00';
+  const isOpen = mxHour >= 10 && mxHour < 23;
+  const hoursText = isOpen ? 'Abierto · 10:00 – 23:00' : 'Cerrado · Abre a las 10:00';
 
   const badge = document.querySelector('.panel-open-badge');
   if (badge) {

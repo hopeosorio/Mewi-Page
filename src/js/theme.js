@@ -15,11 +15,27 @@ function applyTheme(theme) {
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
-  if ('startViewTransition' in document) {
-    document.startViewTransition(() => applyTheme(next));
-  } else {
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('startViewTransition' in document) || reduce) {
     applyTheme(next);
+    return;
   }
+
+  // Origen del reveal circular = centro del botón; radio = esquina más lejana.
+  const btn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  if (btn) {
+    const rect = btn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    root.style.setProperty('--vt-x', `${x}px`);
+    root.style.setProperty('--vt-y', `${y}px`);
+    root.style.setProperty('--vt-r', `${r}px`);
+  }
+
+  document.startViewTransition(() => applyTheme(next));
 }
 
 export function initTheme() {
