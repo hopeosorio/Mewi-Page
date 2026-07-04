@@ -3842,7 +3842,9 @@ img {
 }
 
 .footer-pearl {
-  will-change: transform;
+  /* Sin will-change: 125 perlas → evita promover 125 capas GPU durante el
+     scroll de aproximación. El navegador compone la capa al animar (footer
+     visible vía IntersectionObserver), no antes. Misma animación. */
   animation: pearl-natural-float infinite ease-in-out;
 }
 
