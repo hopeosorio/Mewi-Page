@@ -2832,6 +2832,197 @@ img {
   margin: 0 auto;
 }
 
+.cta-features {
+  list-style: none;
+  margin: 32px auto 0;
+  padding: 0;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+  text-align: left;
+}
+
+.cta-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cta-features svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: var(--color-accent-1);
+}
+
+.cta-features strong {
+  display: block;
+  font-weight: 700;
+  font-size: 0.98rem;
+  margin-bottom: 2px;
+}
+
+.cta-features span {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 600px) {
+  .cta-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cta-store-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.cta-store-btns .store-badge-img {
+  display: inline-block;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.cta-store-btns .store-badge-img:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
+}
+
+.cta-store-btns .store-badge-img img {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+.cta-store-btns button.store-badge-img {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.apk-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: 440px;
+  width: calc(100% - 32px);
+  max-height: 90vh;
+  overflow-y: auto;
+  border: none;
+  border-radius: 20px;
+  padding: 32px 28px;
+  background: var(--color-bg, #fff);
+  color: var(--color-text, #1a1a1a);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  text-align: left;
+}
+
+.apk-modal::backdrop {
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.apk-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.apk-modal-close:hover {
+  opacity: 1;
+}
+
+.apk-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.apk-modal-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin: 0 0 20px;
+}
+
+.apk-modal-download {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: var(--color-accent-1);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.apk-modal-download:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.apk-modal-steps {
+  margin-top: 22px;
+}
+
+.apk-modal-steps-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+
+.apk-modal-steps ol {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+.apk-modal-steps li {
+  margin-bottom: 6px;
+}
+
+.apk-modal-trust {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--color-bg-alt);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.apk-modal-trust-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-accent-1);
+}
+
 .cta-title {
   font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 6rem);

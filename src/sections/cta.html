@@ -1,12 +1,105 @@
-<section class="final-cta">
+<section class="final-cta" id="app">
   <div class="container">
     <div class="cta-content">
       <h2 class="cta-title">¿List@ para tu<br><em class="gradient-text">próximo MEWI</em>?</h2>
-      <p class="cta-subtitle">Muy pronto vas a poder pedir tu MEWI desde aquí.
-        Mientras, lánzate a una de nuestras <a href="#location"
+      <p class="cta-subtitle">Descarga la App de MEWI
+        o lánzate a una de nuestras <a href="#location"
           style="color: #6180ae; font-weight: 700; text-decoration: none; transition: opacity 0.3s;"
           onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">sucursales</a></p>
-      <span class="btn btn-primary btn-xxl btn-disabled"><span>Próximamente</span></span>
+      <ul class="cta-features">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          <div><strong>Gana puntos</strong><span>Acumula en cada compra y canjéalos por recompensas.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg>
+          <div><strong>Pide desde la app</strong><span>Ordena tu MEWI y recógelo sin filas.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4" />
+            <path d="M4 6v12c0 1.1.9 2 2 2h14v-4" />
+            <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z" />
+          </svg>
+          <div><strong>Recompensas exclusivas</strong><span>Promos y sorpresas solo para usuarios de la app.</span>
+          </div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <div><strong>Novedades al instante</strong><span>Entérate de nuevos sabores y sucursales primero.</span></div>
+        </li>
+      </ul>
+      <div class="cta-store-btns">
+        <a href="https://apps.apple.com/mx/app/mewi/id6778579805" class="store-badge-img"
+          aria-label="Descargar en App Store">
+          <img src="/images/app/app_store_3x_d293084ca1_1e913036d8.webp" alt="Download on the App Store" height="48">
+        </a>
+        <button type="button" id="apk-open" class="store-badge-img" aria-label="Descargar en Google Play">
+          <img src="/images/app/disponible_google_play_3x_c977cae3bc_626cd76465.webp" alt="Disponible en Google Play"
+            height="48">
+        </button>
+      </div>
     </div>
   </div>
+
+  <dialog id="apk-modal" class="apk-modal">
+    <button type="button" class="apk-modal-close" aria-label="Cerrar"
+      onclick="document.getElementById('apk-modal').close()">&times;</button>
+    <h3 class="apk-modal-title">Disponible muy pronto en Google Play</h3>
+    <p class="apk-modal-text">Estamos en proceso de aprobación. Mientras tanto, puedes descargar e instalar
+      la app directamente en tu Android.</p>
+    <a href="https://github.com/hopeosorio/Mewi-Page/releases/download/v1.0.0/Mewi.apk" download class="apk-modal-download">Descargar App</a>
+    <div class="apk-modal-steps">
+      <p class="apk-modal-steps-title">Cómo instalarla:</p>
+      <ol>
+        <li>Toca <strong>Descargar App</strong> y espera a que termine.</li>
+        <li>Abre el archivo <strong>.apk</strong> descargado (barra de notificaciones o carpeta <em>Descargas</em>).
+        </li>
+        <li>Android pedirá permiso para <strong>instalar apps de origen desconocido</strong>: actívalo para tu
+          navegador.</li>
+        <li>Toca <strong>Instalar</strong>.</li>
+        <li>Si aparece aviso de Play Protect, elige <strong>Instalar de todos modos</strong>.
+          <p class="apk-modal-trust"><svg class="apk-modal-trust-icon" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg><span>App
+              desarrollada por el equipo de MEWI. El aviso de "origen desconocido" es normal en cualquier app fuera
+              de Google Play y no implica ningún riesgo: es la misma app que publicaremos en la tienda, con tus
+              datos protegidos.</span></p>
+        </li>
+        <li>Abre MEWI y listo.</li>
+      </ol>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('apk-modal');
+      document.getElementById('apk-open').addEventListener('click', function () {
+        if (window.lenis) window.lenis.stop();
+        document.documentElement.style.overflow = 'hidden';
+        modal.showModal();
+      });
+      modal.addEventListener('close', function () {
+        if (window.lenis) window.lenis.start();
+        document.documentElement.style.overflow = '';
+      });
+    })();
+  </script>
 </section>

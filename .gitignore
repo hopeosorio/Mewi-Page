@@ -9,3 +9,6 @@ Thumbs.db
 .qwen/
 CLAUDE.md
 skills-lock.json
+
+# APK hospedado en GitHub Releases, no en repo
+public/*.apk
