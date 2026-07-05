@@ -17,7 +17,10 @@ function toggleTheme() {
   const next = current === 'dark' ? 'light' : 'dark';
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!('startViewTransition' in document) || reduce) {
+  // Táctil (mobile): Safari iOS compone el par del View Transition con plus-lighter y
+  // "lava" el tema nuevo hasta terminar. Sin fix web fiable → swap instantáneo.
+  const touch = window.matchMedia('(hover: none)').matches;
+  if (!('startViewTransition' in document) || reduce || touch) {
     applyTheme(next);
     return;
   }
