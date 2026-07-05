@@ -1,4 +1,34 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Scroll a una sección en mobile (sin Lenis). El documento CRECE mientras bajas:
+// los spacers de los pins (favoritos, proceso) se expanden al recorrerlos, así que la
+// posición de la sección es un blanco móvil. Ease por tiempo (~900ms) re-midiendo el
+// destino cada frame + fase settle final; ScrollTrigger.update() asienta los pins.
+function scrollToSection(target) {
+  const getY = () => target.getBoundingClientRect().top + window.scrollY - 60;
+  const startY = window.scrollY;
+  const t0 = performance.now();
+  const dur = 900;
+  const ease = (p) => 1 - Math.pow(1 - p, 3); // easeOutCubic
+  let settle = 0;
+  const step = (now) => {
+    const dest = getY(); // re-medido cada frame: persigue el doc que crece
+    const p = Math.min(1, (now - t0) / dur);
+    if (p < 1) {
+      window.scrollTo(0, startY + (dest - startY) * ease(p));
+      ScrollTrigger.update();
+      requestAnimationFrame(step);
+    } else {
+      // Fase settle: los pins pueden expandir el doc justo al final (init lazy);
+      // engancha a la posición real hasta estabilizar (o tope de 60 frames).
+      window.scrollTo(0, dest);
+      ScrollTrigger.update();
+      if (Math.abs(getY() - window.scrollY) > 1 && settle++ < 60) requestAnimationFrame(step);
+    }
+  };
+  requestAnimationFrame(step);
+}
 
 export function initNav() {
   const nav = document.getElementById('nav');
@@ -67,9 +97,9 @@ export function initNav() {
       const target = document.querySelector(link.getAttribute('href'));
       if (!target) return;
       if (window.lenis) {
-        window.lenis.scrollTo(target, { offset: -100 });
+        window.lenis.scrollTo(target, { offset: -60 });
       } else {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToSection(target);
       }
     });
   });

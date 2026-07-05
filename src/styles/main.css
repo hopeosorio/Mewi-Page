@@ -403,8 +403,8 @@ img {
   padding: 10px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   opacity: 0;
@@ -3082,10 +3082,13 @@ img {
   width: calc(100% - 32px);
   max-height: 90vh;
   overflow-y: auto;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 32px 28px;
-  background: var(--color-bg, #fff);
+  /* Mismo glass que .nav.scrolled / .nav-mobile-menu */
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
   color: var(--color-text, #1a1a1a);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
   text-align: left;
@@ -3116,11 +3119,21 @@ img {
   opacity: 1;
 }
 
+/* dialog autoenfoca la X al abrir → oculta el cuadro azul salvo con teclado */
+.apk-modal-close:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .apk-modal-title {
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 800;
   margin: 0 0 10px;
+}
+
+/* recibe el autofocus al abrir; no es interactivo, sin outline */
+.apk-modal-title:focus {
+  outline: none;
 }
 
 .apk-modal-text {
@@ -5079,6 +5092,11 @@ button.s-card-cta {
 [data-theme="dark"] .nav.scrolled {
   background: rgba(22, 16, 11, 0.75);
   border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .apk-modal {
+  background: rgba(22, 16, 11, 0.75);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Marquee scrim: adapts to dark bg */

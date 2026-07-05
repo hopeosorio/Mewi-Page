@@ -26,7 +26,9 @@ export function initValoresAnimations() {
     gsap.timeline({
       scrollTrigger: { trigger: row, start: 'top 90%', toggleActions: 'play none none reverse' }
     })
-      .from(row, { borderBottomColor: 'transparent', duration: 1 })
+      // clearProps: al terminar borra el color inline que deja GSAP, si no queda fijo
+      // el borde del tema activo al animar y no sigue al cambiar claro/oscuro.
+      .from(row, { borderBottomColor: 'transparent', duration: 1, clearProps: 'borderBottomColor' })
       .from(num, { opacity: 0, x: -20, duration: 0.6 }, '-=0.8')
       .from(main, { opacity: 0, y: 20, duration: 0.6 }, '-=0.6')
       .from(arrow, { opacity: 0, rotate: -45, duration: 0.6 }, '-=0.4');
