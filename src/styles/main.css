@@ -156,6 +156,7 @@ main {
   .equipo-value-item,
   .valor-row,
   .manifiesto-block,
+  summary,
   [role="button"] {
     cursor: url('/cursors/cursor-pointer.svg') 7 7, pointer !important;
   }
@@ -170,7 +171,8 @@ main {
   .location-item *,
   .equipo-value-item *,
   .valor-row *,
-  .manifiesto-block * {
+  .manifiesto-block *,
+  summary * {
     cursor: inherit !important;
   }
 
@@ -4162,6 +4164,144 @@ img {
   color: var(--color-accent-1);
 }
 
+/* Bloque "Desarrollada por" — oculto tras un teaser (details nativo) */
+.footer-credit {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 48px 48px;
+}
+
+/* Teaser: línea invitación estilo enlace del footer, con chevron de affordance.
+   display:block + caret inline → el chevron fluye tras el texto aunque envuelva
+   en 2 líneas (mobile), sin quedar suelto a un lado. */
+.footer-credit-teaser {
+  display: block;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.footer-credit-teaser::-webkit-details-marker {
+  display: none;
+}
+
+.footer-credit-teaser span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+/* solo punteros reales: en touch el :hover se queda pegado tras tocar */
+@media (hover: hover) {
+  .footer-credit-teaser:hover {
+    color: var(--color-accent-1);
+  }
+
+  .footer-credit-teaser:hover span {
+    text-decoration-color: currentColor;
+  }
+}
+
+.footer-credit-teaser-caret {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  transition: transform 0.25s ease;
+}
+
+.footer-credit[open] .footer-credit-teaser-caret {
+  transform: rotate(180deg);
+}
+
+.footer-credit[open] .footer-credit-teaser {
+  margin-bottom: 24px;
+  color: var(--color-accent-1);
+}
+
+.footer-credit-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding: 28px 44px;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 14px 36px rgba(80, 60, 40, 0.1);
+}
+
+.footer-credit-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-text-muted);
+}
+
+.footer-credit-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.footer-credit-contact-title {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+}
+
+.footer-credit-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.footer-credit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent-1);
+  background: rgba(97, 128, 174, 0.12);
+  border: 1px solid rgba(97, 128, 174, 0.25);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.footer-credit-link:hover {
+  background: rgba(97, 128, 174, 0.2);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .footer-credit-card {
+  background: rgba(22, 16, 11, 0.55);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .footer-credit-link {
+  color: var(--color-accent-2);
+  background: rgba(124, 159, 201, 0.12);
+  border-color: rgba(124, 159, 201, 0.25);
+}
+
 /* Divisor */
 .footer-divider {
   position: relative;
@@ -4285,6 +4425,19 @@ img {
 
   .footer-divider {
     margin: 0 24px 24px;
+  }
+
+  .footer-credit {
+    padding: 0 24px 40px;
+  }
+
+  .footer-credit-card {
+    padding: 24px 28px;
+    width: 100%;
+  }
+
+  .footer-credit-name {
+    font-size: 1.5rem;
   }
 }
 
