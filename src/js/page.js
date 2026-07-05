@@ -1,6 +1,7 @@
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { initMobileMenu } from './nav.js';
+import { initProtect } from './protect.js';
 
 function initLenis() {
   const lenis = new Lenis({
@@ -69,6 +70,8 @@ function initNav() {
 
   window.lenis.on('scroll', (e) => onScroll(e.animatedScroll));
 }
+
+initProtect();
 
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();

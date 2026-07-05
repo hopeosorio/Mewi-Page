@@ -22,6 +22,7 @@ import { initComunidadAnimations } from './js/comunidad.js';
 import { initLocationAnimations, initOpenStatus, initLiveFeed } from './js/location.js';
 import { initFooterPearls } from './js/footer.js';
 import { initGlobalParallax } from './js/parallax.js';
+import { initProtect } from './js/protect.js';
 // map.js loaded lazily when section enters viewport
 const mapContainer = document.getElementById('map-container');
 if (mapContainer) {
@@ -62,6 +63,7 @@ if (!isTouchDevice) {
 }
 
 // Scrollbar + Nav run outside DOMContentLoaded (ES modules are deferred — DOM is already parsed)
+initProtect();
 initScrollbar();
 initNav();
 initTheme();

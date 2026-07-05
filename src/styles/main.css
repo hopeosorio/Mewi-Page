@@ -4103,20 +4103,6 @@ img {
   padding: 0 48px;
 }
 
-.footer-logo {
-  font-size: 2rem;
-  margin-bottom: 16px;
-  display: inline-block;
-}
-
-.footer-logo-img {
-  height: 64px;
-  width: auto;
-  object-fit: contain;
-  margin-bottom: 16px;
-  display: block;
-}
-
 .footer-logo-icon {
   width: 130px;
   height: 64px;

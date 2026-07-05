@@ -4,6 +4,7 @@ dist/
 .env.local
 .DS_Store
 Thumbs.db
+*.tmp
 .agents/
 .claude/
 .qwen/
