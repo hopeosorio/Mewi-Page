@@ -1428,23 +1428,6 @@ img {
   justify-content: center;
 }
 
-/* top progress line */
-.proceso-progress-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.06);
-  z-index: 20;
-}
-
-.proceso-progress-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--gradient-primary);
-}
-
 /* counter top-right */
 .proceso-counter {
   position: absolute;
@@ -1528,11 +1511,13 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--step-accent, #fff) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--step-accent, #fff) 60%, transparent);
   color: #fff;
+  box-shadow: 0 0 32px color-mix(in srgb, var(--step-accent, #fff) 28%, transparent);
   margin-bottom: 32px;
 }
 
@@ -2690,6 +2675,7 @@ img {
 .equipo-collage {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1.2fr 1fr;
@@ -2712,7 +2698,6 @@ img {
 
 .collage-piece:hover {
   transform: scale(1.02) translateY(-10px);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
   z-index: 10;
 }
 
@@ -2736,6 +2721,7 @@ img {
   inset: 0;
   background: linear-gradient(90deg, transparent 60%, var(--color-bg) 100%);
   pointer-events: none;
+  z-index: 1;
 }
 
 .equipo-info {
@@ -2865,6 +2851,10 @@ img {
 
   .equipo-visual {
     height: 300px;
+  }
+
+  .equipo-overlay {
+    background: linear-gradient(180deg, transparent 60%, var(--color-bg) 100%);
   }
 
   .equipo-info {

@@ -34,7 +34,6 @@ export function initProcesoAnimations() {
       onLeave: () => scrollHintProceso?.classList.remove('is-visible'),
       onLeaveBack: () => scrollHintProceso?.classList.remove('is-visible'),
       onUpdate: (self) => {
-        gsap.to('.proceso-progress-fill', { width: (self.progress * 100) + '%', duration: 0.1 });
         if (self.progress > 0.15 && scrollHintProceso && !scrollHintProceso.classList.contains('hint-dismissed')) {
           scrollHintProceso.classList.remove('is-visible');
           scrollHintProceso.classList.add('hint-dismissed');
