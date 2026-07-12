@@ -289,6 +289,122 @@ img {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
+/* ===== Smart App Banner estilo iOS (Android; se muestra vía JS con .has-app-banner) ===== */
+.ios-banner { display: none; }
+
+.has-app-banner .ios-banner {
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  min-height: 84px;
+  background: #f7f7f7;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* nav fija baja bajo el banner; --app-banner-h va de 84px→0 con el scroll (JS).
+   ponytail: fallback 84px cubre el microgap antes de que el script fije la var. */
+.has-app-banner .nav { top: calc(var(--app-banner-h, 84px) + 8px); }
+
+/* Cierre animado: colapsa el alto (el contenido sube a llenar) + fade.
+   min-height:0 es imprescindible: si no, el min-height:84px topa el colapso. */
+.has-app-banner .ios-banner.is-closing {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+}
+
+.ios-banner-icon {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+
+.ios-banner-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.ios-banner-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+}
+
+.ios-banner-sub {
+  font-size: 13px;
+  color: #8a8a8e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botón pill azul relleno (iOS "Obtener") */
+.ios-banner-action {
+  flex: 0 0 auto;
+  border: 0;
+  background: #007aff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 8px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+/* × en círculo gris a la derecha, aspa verde (SVG centrado exacto vía flex) */
+.ios-banner-close {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(120, 120, 128, 0.14);
+  color: #007aff;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .ios-banner {
+  background: #1c1c1e;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .ios-banner-name { color: #f5f5f7; }
+
+[data-theme="dark"] .ios-banner-icon {
+  background: #2c2c2e;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .ios-banner-action { background: #0a84ff; }
+
+[data-theme="dark"] .ios-banner-close {
+  background: rgba(120, 120, 128, 0.24);
+  color: #0a84ff;
+}
+
 .nav-inner {
   max-width: 1400px;
   margin: 0 auto;

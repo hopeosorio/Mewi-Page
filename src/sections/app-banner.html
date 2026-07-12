@@ -1,0 +1,76 @@
+<!-- Smart App Banner estilo iOS para Android (iOS ya lo da nativo vía <meta apple-itunes-app>).
+     En flujo normal → hace scroll-away solo con el scroll nativo. Se muestra vía JS solo en Android. -->
+<div class="ios-banner" id="app-banner" role="complementary" aria-label="Descargar la app de MEWI">
+  <img class="ios-banner-icon" src="/brand/icono-web.webp" alt="" width="52" height="52" decoding="async">
+  <div class="ios-banner-text">
+    <strong class="ios-banner-name">Mewi</strong>
+    <span class="ios-banner-sub">Acumula, Canjea, Disfruta.</span>
+  </div>
+  <button type="button" class="ios-banner-action" id="app-banner-open"
+    aria-label="Obtener MEWI para Android">Obtener</button>
+  <button type="button" class="ios-banner-close" id="app-banner-close" aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2"
+      stroke-linecap="round" aria-hidden="true">
+      <line x1="5" y1="5" x2="19" y2="19" />
+      <line x1="19" y1="5" x2="5" y2="19" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  (function () {
+    // ponytail: UA-sniff — no existe API para "¿es Android?"; regex es el estándar de facto.
+    if (!/Android/i.test(navigator.userAgent)) return;
+    // Persistente: una vez cerrado no vuelve a mostrarse (ni al recargar/volver).
+    try { if (localStorage.getItem('mewi-android-banner-dismissed') === '1') return; } catch (e) {}
+
+    var html = document.documentElement;
+    var banner = document.getElementById('app-banner');
+    if (!banner) return;
+    // Corre durante el parse del body, ANTES de <nav> → el offset CSS aplica antes de que la nav pinte.
+    html.classList.add('has-app-banner');
+
+    // Nav fija se sienta bajo el banner; al hacer scroll el banner se va (flujo normal) y
+    // --app-banner-h baja de su alto a 0, subiendo la nav hasta top:0.
+    var ticking = false;
+    function sync() {
+      ticking = false;
+      var h = Math.max(0, banner.offsetHeight - (window.scrollY || 0));
+      html.style.setProperty('--app-banner-h', h + 'px');
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }
+    sync();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
+
+    document.getElementById('app-banner-close').addEventListener('click', function () {
+      try { localStorage.setItem('mewi-android-banner-dismissed', '1'); } catch (e) {}
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', sync);
+      // Colapsa el alto (contenido sube a llenar) + fade. Fija el alto actual y transiciona a 0.
+      banner.style.height = banner.offsetHeight + 'px';
+      banner.getBoundingClientRect(); // reflow para asentar el alto de partida
+      banner.classList.add('is-closing');
+      banner.style.height = '0px';
+      // La nav sigue el colapso frame a frame mientras dura la transición.
+      (function follow() {
+        if (!banner.classList.contains('is-closing')) return;
+        html.style.setProperty('--app-banner-h', Math.max(0, banner.offsetHeight - (window.scrollY || 0)) + 'px');
+        requestAnimationFrame(follow);
+      })();
+      banner.addEventListener('transitionend', function te(e) {
+        if (e.propertyName !== 'height') return;
+        banner.removeEventListener('transitionend', te);
+        banner.classList.remove('is-closing');   // detiene el loop follow()
+        html.classList.remove('has-app-banner');  // nav vuelve a su top natural; banner → display:none
+        html.style.removeProperty('--app-banner-h');
+      });
+    });
+
+    // "Obtener" reusa el flujo de descarga Android existente (modal APK del CTA).
+    document.getElementById('app-banner-open').addEventListener('click', function () {
+      var trigger = document.getElementById('apk-open');
+      if (trigger) trigger.click();
+    });
+  })();
+</script>
