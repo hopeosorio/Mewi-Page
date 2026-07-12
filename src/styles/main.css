@@ -132,6 +132,26 @@ body {
   padding: 0;
 }
 
+/* Sin selección de texto/elementos ni arrastre/guardado de imágenes (disuasivo, no seguridad).
+   Se reactiva selección en campos de formulario para no romper su uso. */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+input,
+textarea,
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 main {
   width: 100vw;
   overflow-x: hidden;
@@ -293,8 +313,12 @@ img {
 .ios-banner { display: none; }
 
 .has-app-banner .ios-banner {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1001;
+  will-change: transform;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -308,17 +332,29 @@ img {
   -webkit-font-smoothing: antialiased;
 }
 
-/* nav fija baja bajo el banner; --app-banner-h va de 84px→0 con el scroll (JS).
+/* Spacer en flujo: reserva el alto del banner fijo (--app-banner-reserve, fijado por JS).
+   El banner es position:fixed → no ocupa flujo; este spacer empuja el contenido hacia abajo. */
+.ios-banner-spacer { height: 0; }
+.has-app-banner .ios-banner-spacer { height: var(--app-banner-reserve, 84px); }
+
+/* nav fija baja bajo la parte visible del banner; --app-banner-h va de 84px→0 con el scroll (JS).
    ponytail: fallback 84px cubre el microgap antes de que el script fije la var. */
 .has-app-banner .nav { top: calc(var(--app-banner-h, 84px) + 8px); }
 
-/* Cierre animado: colapsa el alto (el contenido sube a llenar) + fade.
-   min-height:0 es imprescindible: si no, el min-height:84px topa el colapso. */
-.has-app-banner .ios-banner.is-closing {
-  overflow: hidden;
-  min-height: 0;
+/* Cierre animado (rebote intacto): banner sube + fade, spacer colapsa (contenido sube),
+   nav vuelve a su top natural. */
+.has-app-banner.is-closing .ios-banner {
   opacity: 0;
-  transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+  transform: translateY(-100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
+}
+
+.has-app-banner.is-closing .ios-banner-spacer {
+  transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.has-app-banner.is-closing .nav {
+  transition: top 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ios-banner-icon {
