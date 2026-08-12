@@ -5,8 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // los spacers de los pins (favoritos, proceso) se expanden al recorrerlos, así que la
 // posición de la sección es un blanco móvil. Ease por tiempo (~900ms) re-midiendo el
 // destino cada frame + fase settle final; ScrollTrigger.update() asienta los pins.
+// Offset dinámico = alto real del nav + margen. Así, si cambia el tamaño del nav, los anclas
+// siguen dejando la sección justo debajo del header (antes era un -60 fijo que se desalineaba).
+function navOffset() {
+  const nav = document.getElementById('nav');
+  return (nav ? nav.getBoundingClientRect().height : 60);
+}
+
 function scrollToSection(target) {
-  const getY = () => target.getBoundingClientRect().top + window.scrollY - 60;
+  const getY = () => target.getBoundingClientRect().top + window.scrollY - navOffset();
   const startY = window.scrollY;
   const t0 = performance.now();
   const dur = 900;
@@ -97,12 +104,22 @@ export function initNav() {
       const target = document.querySelector(link.getAttribute('href'));
       if (!target) return;
       if (window.lenis) {
-        window.lenis.scrollTo(target, { offset: -60 });
+        window.lenis.scrollTo(target, { offset: -navOffset() });
       } else {
         scrollToSection(target);
       }
     });
   });
+
+  // Logo → scroll suave al top sin recargar (href="/" queda como fallback sin JS).
+  const logo = nav?.querySelector('.nav-logo');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.lenis) window.lenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   initMobileMenu();
 }
@@ -143,7 +160,7 @@ export function initMobileMenu() {
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   document.addEventListener('click', (e) => {
     if (mobileMenu.classList.contains('open') &&
-        !nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+      !nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
   window.addEventListener('scroll', closeMenu, { passive: true });

@@ -275,7 +275,7 @@ img {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 24px;
+    padding: 20px 24px;
   }
 }
 
@@ -310,7 +310,9 @@ img {
 }
 
 /* ===== Smart App Banner estilo iOS (Android; se muestra vía JS con .has-app-banner) ===== */
-.ios-banner { display: none; }
+.ios-banner {
+  display: none;
+}
 
 .has-app-banner .ios-banner {
   position: fixed;
@@ -334,12 +336,19 @@ img {
 
 /* Spacer en flujo: reserva el alto del banner fijo (--app-banner-reserve, fijado por JS).
    El banner es position:fixed → no ocupa flujo; este spacer empuja el contenido hacia abajo. */
-.ios-banner-spacer { height: 0; }
-.has-app-banner .ios-banner-spacer { height: var(--app-banner-reserve, 84px); }
+.ios-banner-spacer {
+  height: 0;
+}
+
+.has-app-banner .ios-banner-spacer {
+  height: var(--app-banner-reserve, 84px);
+}
 
 /* nav fija baja bajo la parte visible del banner; --app-banner-h va de 84px→0 con el scroll (JS).
    ponytail: fallback 84px cubre el microgap antes de que el script fije la var. */
-.has-app-banner .nav { top: calc(var(--app-banner-h, 84px) + 8px); }
+.has-app-banner .nav {
+  top: calc(var(--app-banner-h, 84px) + 8px);
+}
 
 /* Cierre animado (rebote intacto): banner sube + fade, spacer colapsa (contenido sube),
    nav vuelve a su top natural. */
@@ -427,14 +436,18 @@ img {
   border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
-[data-theme="dark"] .ios-banner-name { color: #f5f5f7; }
+[data-theme="dark"] .ios-banner-name {
+  color: #f5f5f7;
+}
 
 [data-theme="dark"] .ios-banner-icon {
   background: #2c2c2e;
   box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
 }
 
-[data-theme="dark"] .ios-banner-action { background: #0a84ff; }
+[data-theme="dark"] .ios-banner-action {
+  background: #0a84ff;
+}
 
 [data-theme="dark"] .ios-banner-close {
   background: rgba(120, 120, 128, 0.24);
@@ -455,6 +468,17 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.nav-logo {
+  display: inline-flex;
+  /* Sin el flash negro de tap en móvil; al pulsar crece un poco (efecto de pulso con rebote). */
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-logo:active {
+  transform: scale(1.12);
 }
 
 .nav-logo .logo-text {
@@ -600,11 +624,25 @@ img {
     opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.nav-mobile-menu.open .nav-mobile-link:nth-child(1) { transition-delay: 0.04s; }
-.nav-mobile-menu.open .nav-mobile-link:nth-child(2) { transition-delay: 0.08s; }
-.nav-mobile-menu.open .nav-mobile-link:nth-child(3) { transition-delay: 0.12s; }
-.nav-mobile-menu.open .nav-mobile-link:nth-child(4) { transition-delay: 0.16s; }
-.nav-mobile-menu.open .nav-mobile-link:nth-child(5) { transition-delay: 0.20s; }
+.nav-mobile-menu.open .nav-mobile-link:nth-child(1) {
+  transition-delay: 0.04s;
+}
+
+.nav-mobile-menu.open .nav-mobile-link:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.nav-mobile-menu.open .nav-mobile-link:nth-child(3) {
+  transition-delay: 0.12s;
+}
+
+.nav-mobile-menu.open .nav-mobile-link:nth-child(4) {
+  transition-delay: 0.16s;
+}
+
+.nav-mobile-menu.open .nav-mobile-link:nth-child(5) {
+  transition-delay: 0.20s;
+}
 
 .nav-mobile-link:active {
   background: var(--color-bg-alt);
@@ -1572,7 +1610,8 @@ img {
 
 .proceso-sticky {
   height: 100vh;
-  background: transparent; /* el azul vive en .proceso (in-flow); ver nota arriba */
+  background: transparent;
+  /* el azul vive en .proceso (in-flow); ver nota arriba */
   overflow: hidden;
   position: relative;
   display: flex;
@@ -2015,6 +2054,11 @@ img {
   /* Eliminamos overflow: hidden para permitir que el parallax no corte las tarjetas */
 }
 
+/* Indicador del carrusel: solo visible en móvil (se activa en el @media). */
+.testi-dots {
+  display: none;
+}
+
 .testimonios-bg-text {
   position: absolute;
   top: 50%;
@@ -2376,7 +2420,7 @@ img {
 
 @media (max-width: 768px) {
   .testimonios {
-    padding: 80px 0;
+    padding: 20px 0;
   }
 
   .testimonio-card {
@@ -2384,33 +2428,146 @@ img {
     contain-intrinsic-size: unset;
   }
 
+  /* Carrusel horizontal con scroll-snap (nativo, sin JS). Cada card ~85% → se asoma la
+     siguiente como señal de deslizable. Full-bleed (margin-inline negativo cancela el padding
+     del .container) → el corte queda en el borde real de la pantalla, sin orilla visible. */
   .testimonios-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    padding: 0 16px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding: 4px 20px 12px;
     gap: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonios-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* align-items:flex-start → al expandir una card no se estiran las demás. */
+  .testimonios-grid {
+    align-items: flex-start;
   }
 
   .testimonio-wrapper,
   .testimonio-wrapper:has(.card-large),
   .testimonio-wrapper:has(.card-medium),
   .testimonio-wrapper:has(.card-small) {
-    grid-column: 1 / -1 !important;
+    grid-column: auto !important;
     grid-row: auto !important;
+    flex: 0 0 85%;
+    max-width: 85%;
+    scroll-snap-align: center;
   }
 
+  /* Efecto de foco al desplazar: las cards de las orillas se ven más chicas/alejadas y crecen
+     al centro. Scroll-driven animation nativa (sin JS). Decorativo → progressive enhancement:
+     navegadores sin soporte muestran las cards a tamaño normal. */
+  @keyframes testi-focus {
+    0% {
+      scale: 0.85;
+      opacity: 0.5;
+    }
+
+    50% {
+      scale: 1;
+      opacity: 1;
+    }
+
+    100% {
+      scale: 0.85;
+      opacity: 0.5;
+    }
+  }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .testimonio-wrapper {
+      animation: testi-focus auto linear both;
+      animation-timeline: view(inline);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonio-wrapper {
+      animation: none;
+    }
+  }
+
+  /* Indicador del carrusel: puntos que se expanden a pill en el activo (estilo Burger Pack). */
+  .testi-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .testi-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(97, 128, 174, 0.3);
+    transition: width 0.3s, background 0.3s;
+  }
+
+  .testi-dot.is-active {
+    width: 26px;
+    border-radius: 999px;
+    background: var(--color-accent-1);
+  }
+
+  /* Todas del mismo tamaño (340px fijo); crecen solo al expandir (animado por JS). */
   .testimonio-card {
     width: 100%;
     min-width: unset;
     max-width: 100%;
+    height: 340px;
     padding: 22px 22px 20px;
+    overflow: hidden;
   }
 
+  /* Fuente unificada en móvil: vence a .card-large/medium/small (misma especificidad, va
+     después) para que el texto largo no salga gigante y todas midan igual. */
+  .testimonio-card .testimonio-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Texto largo: se corta limpio a 5 líneas (max-height exacto + overflow), sin "…". */
   .testimonio-text {
-    font-size: 0.875rem;
+    flex-grow: 0;
+    max-height: calc(1.6em * 5);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .testimonio-author {
+    margin-top: auto;
+  }
+
+  /* Card "corta": SOLO el texto se agranda y se centra (vertical/horizontal) en el espacio
+     del medio; stars/badge quedan arriba y el autor abajo, sin moverse. */
+  .testimonio-card.is-short .testimonio-text {
+    max-height: none;
+    overflow: visible;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.55;
   }
 
   .testimonios-footer {
+    margin-top: 40px;
     flex-direction: column;
     gap: 40px;
     text-align: center;
@@ -3579,7 +3736,7 @@ img {
   font-family: var(--font-display);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: #4a3220;
 }
 
 .mewi-popup span {
@@ -4050,7 +4207,7 @@ img {
 /* ---- Responsive ---- */
 @media (max-width: 1100px) {
   .location {
-    padding: 60px 32px;
+    padding: 20px 32px;
   }
 
   .location-wrapper {
@@ -4065,7 +4222,7 @@ img {
 
 @media (max-width: 800px) {
   .location {
-    padding: 60px 20px;
+    padding: 20px 20px;
   }
 
   .location-wrapper {
@@ -4454,6 +4611,7 @@ img {
   letter-spacing: 0.03em;
 }
 
+
 /* Burbujas de IA — inspirado en condensación */
 @keyframes pearlFloat {
 
@@ -4782,7 +4940,7 @@ img {
    Social Proof - Redes Sociales
    =================================== */
 .social-proof {
-  padding: 100px 0 50px;
+  padding: 20px 0 50px;
   background: var(--color-bg);
 }
 
@@ -5213,7 +5371,7 @@ button.s-card-cta {
   }
 
   .comunidad-hero {
-    padding: 0 20px 36px;
+    padding: 20px 0px 36px;
   }
 
   .galeria-cinetica {
@@ -5298,8 +5456,13 @@ button.s-card-cta {
 }
 
 @keyframes vt-circle {
-  from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%)); }
-  to   { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 50%)); }
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+
+  to {
+    clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
 }
 
 /* ===================================

@@ -17,7 +17,7 @@ import { initValoresAnimations } from './js/valores.js';
 import { initAboutAnimations } from './js/about.js';
 import { initManifiestoAnimations } from './js/manifiesto.js';
 import { initEquipoAnimations } from './js/equipo.js';
-import { initTestimoniosBento, initStatsAnimations } from './js/testimonios.js';
+import { initTestimoniosBento, initStatsAnimations, initTestimonialReadMore, initTestimonialDots } from './js/testimonios.js';
 import { initComunidadAnimations } from './js/comunidad.js';
 import { initLocationAnimations, initOpenStatus, initLiveFeed } from './js/location.js';
 import { initFooterPearls } from './js/footer.js';
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lazyInit('.about', initAboutAnimations);
   lazyInit('.manifiesto', initManifiestoAnimations);
   lazyInit('.equipo', initEquipoAnimations);
-  lazyInit('.testimonios', () => { initTestimoniosBento(); initStatsAnimations(); });
+  lazyInit('.testimonios', () => { initTestimoniosBento(); initStatsAnimations(); initTestimonialReadMore(); initTestimonialDots(); });
   lazyInit('.comunidad', initComunidadAnimations);
   lazyInit('.location', initLocationAnimations);
   lazyInit('.footer', initFooterPearls);

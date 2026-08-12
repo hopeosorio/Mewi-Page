@@ -105,7 +105,12 @@ export function initFooterPearls() {
   drawCanvasPearls();
 
   let resizeTimer;
+  let lastWidth = window.innerWidth;
   window.addEventListener('resize', () => {
+    // En móvil, scrollear muestra/oculta la barra de URL → cambia el ALTO y dispara resize;
+    // redibujar re-randomiza las perlas (salto brusco). Ignoramos resizes de solo alto.
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => { drawCanvasPearls(); drawStaticPearls(); }, 200);
   });

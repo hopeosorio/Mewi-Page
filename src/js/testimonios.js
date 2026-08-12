@@ -88,6 +88,66 @@ export function initTestimoniosBento() {
   window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 500));
 }
 
+// Carrusel móvil: cada card mide igual (340px). El texto largo se corta limpio (CSS); el texto
+// corto se agranda y se centra para llenar el espacio. Solo clasifica; sin botón ni expand.
+export function initTestimonialReadMore() {
+  const mq = window.matchMedia('(max-width: 768px)');
+  const cards = Array.from(document.querySelectorAll('.testimonio-card'));
+
+  const sync = () => {
+    cards.forEach((card) => {
+      const text = card.querySelector('.testimonio-text');
+      if (!text) return;
+      card.classList.remove('is-short');
+      if (!mq.matches) return;
+      // corto = el texto NO se desborda del recorte → agrandar y centrar.
+      const overflowing = text.scrollHeight > text.clientHeight + 2;
+      if (!overflowing) card.classList.add('is-short');
+    });
+  };
+
+  sync();
+  window.addEventListener('resize', sync);
+  mq.addEventListener?.('change', sync);
+}
+
+// Indicador (puntos) del carrusel móvil: uno por testimonio, marca el activo según el scroll
+// y al tocar un punto desplaza a esa card. Se oculta en desktop por CSS.
+export function initTestimonialDots() {
+  const grid = document.querySelector('.testimonios-grid');
+  const dotsWrap = document.getElementById('testi-dots');
+  const wrappers = Array.from(document.querySelectorAll('.testimonio-wrapper'));
+  if (!grid || !dotsWrap || !wrappers.length) return;
+
+  dotsWrap.innerHTML = '';
+  const dots = wrappers.map((w, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'testi-dot' + (i === 0 ? ' is-active' : '');
+    b.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
+    b.addEventListener('click', () => w.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }));
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  let raf = null;
+  const update = () => {
+    raf = null;
+    const gridRect = grid.getBoundingClientRect();
+    const center = gridRect.left + gridRect.width / 2;
+    let best = 0, bestDist = Infinity;
+    wrappers.forEach((w, i) => {
+      const r = w.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - center);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === best));
+  };
+
+  grid.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  update();
+}
+
 export function initStatsAnimations() {
   document.querySelectorAll('.stat-num').forEach(stat => {
     const target = parseFloat(stat.dataset.count);

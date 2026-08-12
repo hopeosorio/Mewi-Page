@@ -49,10 +49,7 @@ function initMap() {
     maxZoom: 19,
   }).addTo(map);
 
-  // Atribución mínima
-  L.control.attribution({ position: 'bottomright', prefix: false })
-    .addAttribution('© <a href="https://carto.com">CARTO</a>')
-    .addTo(map);
+  // Sin badge de atribución sobre el mapa; el crédito requerido (CARTO/OSM) va en el footer.
 
   // Pins + popups
   LOCATIONS.forEach((loc, i) => {

@@ -1,0 +1,14 @@
+{
+  "name": "MEWI",
+  "short_name": "MEWI",
+  "description": "Creamos historias extraordinarias, cada bebida es para un estilo de vida diferente, crea tu propia historia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0a14",
+  "theme_color": "#0f0a14",
+  "lang": "es",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
