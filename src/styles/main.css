@@ -401,11 +401,11 @@ img {
   text-overflow: ellipsis;
 }
 
-/* Botón pill azul relleno (iOS "Obtener") */
+/* Botón pill relleno (iOS "Obtener") */
 .ios-banner-action {
   flex: 0 0 auto;
   border: 0;
-  background: #007aff;
+  background: #6180ae;
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -415,7 +415,7 @@ img {
   cursor: pointer;
 }
 
-/* × en círculo gris a la derecha, aspa verde (SVG centrado exacto vía flex) */
+/* × en círculo gris a la derecha, aspa azul (SVG centrado exacto vía flex) */
 .ios-banner-close {
   flex: 0 0 auto;
   width: 30px;
@@ -427,7 +427,7 @@ img {
   border: 0;
   border-radius: 50%;
   background: rgba(120, 120, 128, 0.14);
-  color: #007aff;
+  color: #6180ae;
   cursor: pointer;
 }
 
@@ -3373,136 +3373,6 @@ img {
   cursor: pointer;
 }
 
-.apk-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  max-width: 440px;
-  width: calc(100% - 32px);
-  max-height: 90vh;
-  overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  padding: 32px 28px;
-  /* Mismo glass que .nav.scrolled / .nav-mobile-menu */
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  color: var(--color-text, #1a1a1a);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-  text-align: left;
-}
-
-.apk-modal::backdrop {
-  background: rgba(0, 0, 0, 0.08);
-  /* !important evita que esbuild colapse el par prefijado en la build de prod */
-  -webkit-backdrop-filter: blur(8px) !important;
-  backdrop-filter: blur(8px) !important;
-}
-
-.apk-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  border: none;
-  background: none;
-  font-size: 1.8rem;
-  line-height: 1;
-  color: inherit;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
-}
-
-.apk-modal-close:hover {
-  opacity: 1;
-}
-
-/* dialog autoenfoca la X al abrir → oculta el cuadro azul salvo con teclado */
-.apk-modal-close:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.apk-modal-title {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
-  margin: 0 0 10px;
-}
-
-/* recibe el autofocus al abrir; no es interactivo, sin outline */
-.apk-modal-title:focus {
-  outline: none;
-}
-
-.apk-modal-text {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  opacity: 0.85;
-  margin: 0 0 20px;
-}
-
-.apk-modal-download {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  padding: 14px 20px;
-  border-radius: 12px;
-  background: var(--color-accent-1);
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-.apk-modal-download:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.apk-modal-steps {
-  margin-top: 22px;
-}
-
-.apk-modal-steps-title {
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin: 0 0 8px;
-}
-
-.apk-modal-steps ol {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  opacity: 0.9;
-}
-
-.apk-modal-steps li {
-  margin-bottom: 6px;
-}
-
-.apk-modal-trust {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 8px 0 4px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: var(--color-bg-alt);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  opacity: 0.9;
-}
-
-.apk-modal-trust-icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--color-accent-1);
-}
-
 .cta-title {
   font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 6rem);
@@ -5536,11 +5406,6 @@ button.s-card-cta {
 [data-theme="dark"] .nav.scrolled {
   background: rgba(22, 16, 11, 0.75);
   border-bottom-color: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .apk-modal {
-  background: rgba(22, 16, 11, 0.75);
-  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Marquee scrim: adapts to dark bg */

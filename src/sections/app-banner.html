@@ -31,24 +31,28 @@
     if (!banner) return;
     // Corre durante el parse del body, ANTES de <nav> → el offset CSS aplica antes de que la nav pinte.
     html.classList.add('has-app-banner');
-    // Reserva (alto del spacer) fija; el banner es fixed y no ocupa flujo.
-    html.style.setProperty('--app-banner-reserve', banner.offsetHeight + 'px');
+    // Alto medido UNA vez (recalculado solo en resize). Evita leer offsetHeight en cada
+    // frame de scroll, que forzaba un reflow síncrono por frame → el "traba" en Android.
+    var bh = banner.offsetHeight;
+    html.style.setProperty('--app-banner-reserve', bh + 'px');
 
-    // Banner fijo: el scroll-away se hace con transform (sube al scrollear). La nav se
-    // sienta bajo la parte visible del banner vía --app-banner-h. Ambos clampeados a
-    // [0, alto] para que el overscroll (scrollY negativo) NO los mueva → banner pegado arriba.
-    var ticking = false;
+    // Banner fijo: el scroll-away se hace con transform (translate3d = capa GPU). La nav
+    // se sienta bajo la parte visible vía --app-banner-h. Clampeado a [0, bh] para que el
+    // overscroll no lo mueva. Sin lecturas de layout en el frame → 60fps.
+    var ticking = false, lastH = -1;
     function sync() {
       ticking = false;
-      var bh = banner.offsetHeight;
-      var h = Math.max(0, Math.min(bh, bh - (window.scrollY || 0)));
+      var y = window.scrollY || 0;
+      var h = y <= 0 ? bh : (y >= bh ? 0 : bh - y);
+      if (h === lastH) return;   // pasado el banner (h=0) deja de tocar el DOM
+      lastH = h;
       html.style.setProperty('--app-banner-h', h + 'px');
-      banner.style.transform = 'translateY(' + (h - bh) + 'px)';
+      banner.style.transform = 'translate3d(0,' + (h - bh) + 'px,0)';
     }
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }
     sync();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', sync, { passive: true });
+    window.addEventListener('resize', function () { bh = banner.offsetHeight; lastH = -1; sync(); }, { passive: true });
 
     document.getElementById('app-banner-close').addEventListener('click', function () {
       try { localStorage.setItem('mewi-android-banner-dismissed', '1'); } catch (e) {}
@@ -69,35 +73,9 @@
       });
     });
 
-    // ── "Obtener" / "Abrir" ─────────────────────────────────────────────────
-    // Scaffold: si la app ya está instalada, el botón dice "Abrir" y la lanza.
-    // Degrada solo → mientras falte la infra, siempre muestra "Obtener".
-    // PARA ACTIVARLO cuando la app esté publicada, agregar 3 cosas:
-    //   1. Web App Manifest enlazado con related_applications:
-    //        [{ "platform": "play", "id": "com.mewi.app",
-    //           "url": "https://play.google.com/store/apps/details?id=com.mewi.app" }]
-    //   2. /.well-known/assetlinks.json en el dominio con el fingerprint SHA-256
-    //      de la firma del APK (Digital Asset Links verifica sitio↔app).
-    //   3. Rellenar DEEP_LINK abajo con el esquema/URL que abre la app.
-    var DEEP_LINK = ''; // p.ej. 'mewi://home' o 'https://mewi.mx/app' (link que captura la app)
-    var installed = false;
-    var openBtn = document.getElementById('app-banner-open');
-
-    if (navigator.getInstalledRelatedApps) {
-      navigator.getInstalledRelatedApps().then(function (apps) {
-        if (apps && apps.length) {
-          installed = true;
-          openBtn.textContent = 'Abrir';
-          openBtn.setAttribute('aria-label', 'Abrir MEWI');
-        }
-      }).catch(function () { /* sin manifest/assetlinks: se queda en "Obtener" */ });
-    }
-
-    openBtn.addEventListener('click', function () {
-      if (installed && DEEP_LINK) { window.location.href = DEEP_LINK; return; }
-      // Fallback: flujo de descarga Android existente (modal APK del CTA).
-      var trigger = document.getElementById('apk-open');
-      if (trigger) trigger.click();
+    // "Obtener" → Google Play (app ya publicada).
+    document.getElementById('app-banner-open').addEventListener('click', function () {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.mewi.app';
     });
   })();
 </script>
