@@ -413,6 +413,7 @@ img {
   padding: 8px 20px;
   border-radius: 100px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* × en círculo gris a la derecha, aspa azul (SVG centrado exacto vía flex) */
@@ -429,6 +430,7 @@ img {
   background: rgba(120, 120, 128, 0.14);
   color: #6180ae;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 [data-theme="dark"] .ios-banner {
