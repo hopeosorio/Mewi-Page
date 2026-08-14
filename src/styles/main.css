@@ -632,7 +632,9 @@ img {
 .nav-mobile-menu.open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  /* transform:none en reposo → sin stacking context que rompa backdrop-filter en Android.
+     La entrada anima desde el translateY/scale del estado cerrado. */
+  transform: none;
 }
 
 .nav-mobile-link {
