@@ -257,6 +257,34 @@ button {
   background: none;
 }
 
+/* Táctil: quita el recuadro gris de highlight y lo cambia por feedback de presión.
+   scale = enlaces/botones en bloque; opacity cubre los links de texto inline (no escalan). */
+a,
+button,
+[role="button"],
+label,
+summary,
+input[type="submit"],
+input[type="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+
+  a,
+  button,
+  [role="button"] {
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+
+  a:active,
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.96);
+    opacity: 0.75;
+  }
+}
+
 ul {
   list-style: none;
 }
